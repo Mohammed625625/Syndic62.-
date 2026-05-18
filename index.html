@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<meta name="theme-color" content="#0f4c35"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="سنديك 62"/>
+<title>سنديك 62</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --primary:#0f7a54;--primary-light:#d1f0e4;--primary-dark:#073d29;
+  --accent:#1a8cff;--accent-light:#dceeff;
+  --gold:#c9933a;--gold-light:#fdf1dc;
+  --warn:#d97706;--warn-light:#fef3c7;
+  --danger:#dc2626;--danger-light:#fee2e2;
+  --success:#16a34a;--success-light:#dcfce7;
+  --bg:#f8fafb;--bg2:#f0f4f7;--bg3:#e5eaef;
+  --border:#d1d9e0;--border2:#b8c4ce;
+  --text:#0d1b2a;--text2:#4a6070;--text3:#8a9db0;
+  --radius:16px;--radius-sm:10px;--radius-xs:7px;
+  --shadow:0 2px 8px rgba(0,0,0,0.07),0 1px 2px rgba(0,0,0,0.05);
+  --shadow-lg:0 8px 32px rgba(0,0,0,0.12),0 2px 8px rgba(0,0,0,0.06);
+  --font:'Cairo',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:var(--font);background:var(--bg);color:var(--text);direction:rtl;min-height:100vh;padding-bottom:80px;overflow-x:hidden;}
+
+/* ===== LOGIN SCREEN ===== */
+#login-screen{
+  position:fixed;inset:0;z-index:1000;
+  background:linear-gradient(145deg,#0a2e1e 0%,#0f4c35 45%,#0d3d2b 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:24px;
+}
+.login-bg-pattern{
+  position:absolute;inset:0;opacity:0.05;
+  background-image:repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%),
+    repeating-linear-gradient(-45deg,#fff 0,#fff 1px,transparent 0,transparent 50%);
+  background-size:20px 20px;
+}
+.login-glow{
+  position:absolute;top:-100px;right:-80px;width:300px;height:300px;
+  background:radial-gradient(circle,rgba(26,200,130,0.2) 0%,transparent 70%);
+  pointer-events:none;
+}
+.login-glow2{
+  position:absolute;bottom:-80px;left:-60px;width:250px;height:250px;
+  background:radial-gradient(circle,rgba(26,140,255,0.15) 0%,transparent 70%);
+  pointer-events:none;
+}
+.login-logo{
+  text-align:center;margin-bottom:36px;position:relative;
+  animation:fadeSlideDown 0.6s ease both;
+}
+.login-icon{
+  width:84px;height:84px;border-radius:24px;
+  background:linear-gradient(135deg,rgba(255,255,255,0.18),rgba(255,255,255,0.06));
+  border:1px solid rgba(255,255,255,0.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:40px;margin:0 auto 16px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.2);
+  backdrop-filter:blur(10px);
+}
+.login-logo h1{color:#fff;font-size:26px;font-weight:800;letter-spacing:-0.5px;}
+.login-logo p{color:rgba(255,255,255,0.55);font-size:13px;margin-top:4px;}
+
+.login-box{
+  background:rgba(255,255,255,0.07);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:20px;
+  padding:24px 20px;
+  width:100%;max-width:360px;
+  position:relative;
+  animation:fadeSlideUp 0.6s ease 0.1s both;
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
+}
+
+.role-tabs{display:flex;gap:6px;margin-bottom:20px;background:rgba(0,0,0,0.2);border-radius:10px;padding:4px;}
+.role-tab{
+  flex:1;padding:9px 6px;border:none;border-radius:7px;
+  background:transparent;color:rgba(255,255,255,0.5);
+  font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;
+  transition:all 0.25s;
+}
+.role-tab.active{background:#fff;color:var(--primary-dark);box-shadow:0 2px 8px rgba(0,0,0,0.2);}
+
+.login-field{margin-bottom:14px;}
+.login-field label{display:block;color:rgba(255,255,255,0.7);font-size:12px;font-weight:600;margin-bottom:7px;letter-spacing:0.3px;}
+.login-field input{
+  width:100%;padding:12px 14px;
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:10px;
+  color:#fff;font-family:var(--font);font-size:14px;
+  outline:none;transition:border-color 0.2s,background 0.2s;
+}
+.login-field input::placeholder{color:rgba(255,255,255,0.3);}
+.login-field input:focus{border-color:rgba(26,200,130,0.7);background:rgba(255,255,255,0.14);}
+
+.btn-login{
+  width:100%;padding:14px;border:none;border-radius:12px;
+  background:linear-gradient(135deg,#1ac882,#0f7a54);
+  color:#fff;font-family:var(--font);font-size:15px;font-weight:700;
+  cursor:pointer;margin-top:8px;
+  position:relative;overflow:hidden;
+  box-shadow:0 4px 20px rgba(26,200,130,0.4);
+  transition:transform 0.15s,box-shadow 0.15s;
+  letter-spacing:0.3px;
+}
+.btn-login::before{
+  content:'';position:absolute;top:-50%;left:-60%;
+  width:50%;height:200%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);
+  transform:skewX(-20deg);
+  animation:btnShine 3s infinite;
+}
+.btn-login:active{transform:scale(0.98);box-shadow:0 2px 12px rgba(26,200,130,0.3);}
+.btn-login:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(26,200,130,0.5);}
+
+.login-error{
+  background:rgba(220,38,38,0.2);border:1px solid rgba(220,38,38,0.4);
+  border-radius:8px;padding:10px 12px;color:#fca5a5;
+  font-size:12px;text-align:center;margin-top:10px;display:none;
+}
+.demo-hint{text-align:center;margin-top:14px;color:rgba(255,255,255,0.35);font-size:11px;line-height:1.7;}
+.demo-hint strong{color:rgba(255,255,255,0.55);}
+
+@keyframes fadeSlideDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:none;}}
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+@keyframes btnShine{0%{left:-60%;}100%{left:120%;}}
+
+/* ===== HEADER ===== */
+.header{
+  background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 100%);
+  padding:14px 16px 12px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:50;
+  box-shadow:0 3px 16px rgba(7,61,41,0.4);
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.header-left{display:flex;flex-direction:column;}
+.header-title{color:#fff;font-size:17px;font-weight:800;line-height:1.2;letter-spacing:-0.3px;}
+.header-sub{color:rgba(255,255,255,0.6);font-size:11px;margin-top:3px;font-weight:500;}
+.header-date{color:rgba(255,255,255,0.85);font-size:11px;font-weight:600;}
+.header-user-badge{
+  background:rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.25);
+  border-radius:20px;padding:4px 10px;
+  color:#fff;font-size:11px;font-weight:600;
+  display:flex;align-items:center;gap:5px;
+}
+.notif-bell{
+  position:relative;cursor:pointer;
+  background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);
+  border-radius:50%;width:38px;height:38px;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:18px;transition:background 0.2s;
+}
+.notif-bell:hover{background:rgba(255,255,255,0.25);}
+.notif-dot{position:absolute;top:5px;right:5px;width:9px;height:9px;border-radius:50%;background:#ef4444;border:2px solid var(--primary-dark);display:none;}
+.notif-dot.show{display:block;animation:pulse-dot 2s infinite;}
+@keyframes pulse-dot{0%,100%{transform:scale(1);}50%{transform:scale(1.3);}}
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav{
+  position:fixed;bottom:0;left:0;right:0;
+  background:#fff;
+  border-top:1px solid var(--border);
+  display:flex;z-index:50;
+  box-shadow:0 -4px 20px rgba(0,0,0,0.08);
+}
+.bnav-btn{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:8px 4px;border:none;background:none;cursor:pointer;
+  color:var(--text3);font-size:10px;gap:3px;
+  font-family:var(--font);font-weight:600;
+  position:relative;transition:color 0.2s;
+}
+.bnav-btn.active{color:var(--primary);}
+.bnav-btn.active .bnav-icon-wrap{
+  background:var(--primary-light);
+  transform:translateY(-2px);
+}
+.bnav-icon-wrap{
+  width:36px;height:28px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.2s;
+}
+.bnav-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.bnav-badge{
+  position:absolute;top:2px;right:calc(50% - 18px);
+  background:#ef4444;color:#fff;border-radius:10px;
+  font-size:9px;font-weight:700;padding:1px 5px;display:none;
+}
+.bnav-badge.show{display:block;}
+
+/* ===== PAGES ===== */
+.page{display:none;padding:14px 14px 0;}
+.page.active{display:block;animation:pageFadeIn 0.25s ease;}
+@keyframes pageFadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+/* ===== CARDS ===== */
+.card{
+  background:#fff;border-radius:var(--radius);
+  padding:16px;margin-bottom:14px;
+  box-shadow:var(--shadow);
+  border:1px solid rgba(0,0,0,0.04);
+  position:relative;overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;top:0;right:0;
+  width:60px;height:3px;
+  background:linear-gradient(90deg,transparent,var(--primary));
+  border-radius:0 0 0 3px;
+  opacity:0.4;
+}
+.card-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px;letter-spacing:-0.2px;}
+.card-title svg{width:18px;height:18px;stroke:var(--primary);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.card-title .card-icon{
+  width:32px;height:32px;border-radius:9px;
+  background:var(--primary-light);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;
+}
+
+/* ===== STATS ===== */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.stat-card{
+  background:#fff;border-radius:var(--radius-sm);
+  padding:14px 12px;box-shadow:var(--shadow);
+  text-align:center;border:1px solid rgba(0,0,0,0.04);
+  transition:transform 0.2s,box-shadow 0.2s;
+  position:relative;overflow:hidden;
+}
+.stat-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--primary),var(--accent));
+  opacity:0.3;
+}
+.stat-card:active{transform:scale(0.97);}
+.stat-val{font-size:26px;font-weight:800;margin-bottom:3px;letter-spacing:-1px;}
+.stat-val.green{color:var(--success);}
+.stat-val.red{color:var(--danger);}
+.stat-val.amber{color:var(--warn);}
+.stat-val.blue{color:var(--accent);}
+.stat-lbl{font-size:11px;color:var(--text2);font-weight:600;}
+.progress-bar{height:6px;border-radius:3px;background:var(--bg3);margin-top:10px;overflow:hidden;}
+.progress-fill{
+  height:100%;border-radius:3px;
+  background:linear-gradient(90deg,var(--primary),#1ac882);
+  transition:width 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ===== BADGES ===== */
+.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+.badge-paid{background:var(--success-light);color:var(--success);}
+.badge-unpaid{background:var(--danger-light);color:var(--danger);}
+
+/* ===== TABLE ===== */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius-xs);}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th{background:var(--bg2);padding:10px 8px;text-align:right;font-weight:700;font-size:11px;color:var(--text2);border-bottom:2px solid var(--border);}
+td{padding:10px 8px;border-bottom:1px solid var(--border);color:var(--text);}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--bg);}
+
+/* ===== BUTTONS ===== */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:10px 18px;border-radius:var(--radius-sm);
+  border:1.5px solid var(--border2);background:var(--bg);
+  font-size:13px;cursor:pointer;color:var(--text);
+  font-family:var(--font);font-weight:600;
+  transition:all 0.18s;position:relative;overflow:hidden;
+}
+.btn::after{
+  content:'';position:absolute;inset:0;
+  background:rgba(0,0,0,0);transition:background 0.15s;
+  border-radius:inherit;
+}
+.btn:hover::after{background:rgba(0,0,0,0.04);}
+.btn:active{transform:scale(0.97);}
+
+.btn-primary{
+  background:linear-gradient(135deg,var(--primary),#0a6644);
+  border-color:transparent;color:#fff;
+  box-shadow:0 3px 12px rgba(15,122,84,0.3);
+}
+.btn-primary:hover{box-shadow:0 5px 18px rgba(15,122,84,0.4);transform:translateY(-1px);}
+.btn-primary:active{transform:scale(0.97) translateY(0);}
+
+.btn-danger{background:var(--danger-light);border-color:var(--danger);color:var(--danger);}
+.btn-danger:hover{background:var(--danger);color:#fff;}
+
+.btn-wa{
+  background:linear-gradient(135deg,#25D366,#1da851);
+  border-color:transparent;color:#fff;
+  box-shadow:0 3px 10px rgba(37,211,102,0.3);
+}
+.btn-wa:hover{box-shadow:0 4px 15px rgba(37,211,102,0.45);transform:translateY(-1px);}
+
+.btn-gold{
+  background:linear-gradient(135deg,#c9933a,#a87228);
+  border-color:transparent;color:#fff;
+  box-shadow:0 3px 10px rgba(201,147,58,0.3);
+}
+
+.btn-sm{padding:6px 12px;font-size:12px;}
+.btn-xs{padding:4px 9px;font-size:11px;}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.btn-block{width:100%;justify-content:center;}
+
+/* ===== FILTER ===== */
+.filter-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px;}
+select,input,textarea{
+  font-family:var(--font);font-size:13px;
+  border:1.5px solid var(--border);border-radius:var(--radius-xs);
+  padding:9px 12px;background:#fff;color:var(--text);
+  outline:none;transition:border-color 0.2s,box-shadow 0.2s;
+}
+select:focus,input:focus,textarea:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(15,122,84,0.12);
+}
+textarea{resize:vertical;min-height:72px;width:100%;}
+
+/* ===== MODAL ===== */
+.modal-bg{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);
+  z-index:200;align-items:flex-end;justify-content:center;
+}
+.modal-bg.open{display:flex;}
+.modal{
+  background:#fff;
+  border-radius:var(--radius) var(--radius) 0 0;
+  padding:20px 16px 32px;
+  width:100%;max-height:88vh;overflow-y:auto;
+  animation:slideUp 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  position:relative;
+}
+.modal::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--primary),var(--accent));
+}
+@keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+.modal-handle{width:40px;height:4px;border-radius:2px;background:var(--border2);margin:0 auto 18px;}
+.modal h3{font-size:17px;font-weight:800;margin-bottom:16px;letter-spacing:-0.3px;}
+.form-group{margin-bottom:14px;}
+.form-group label{display:block;font-size:12px;color:var(--text2);margin-bottom:6px;font-weight:700;letter-spacing:0.2px;}
+.form-group input,.form-group select,.form-group textarea{width:100%;}
+.modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:18px;}
+
+/* ===== CONTACT CARD ===== */
+.contact-card{
+  background:#fff;border-radius:var(--radius-sm);
+  padding:13px;display:flex;align-items:center;gap:12px;
+  border:1.5px solid var(--border);margin-bottom:8px;
+  transition:border-color 0.2s,box-shadow 0.2s;
+}
+.contact-card:hover{border-color:var(--primary-light);box-shadow:var(--shadow);}
+.avatar{
+  width:44px;height:44px;border-radius:14px;
+  background:linear-gradient(135deg,var(--primary-light),var(--accent-light));
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;color:var(--primary-dark);flex-shrink:0;
+  border:2px solid rgba(15,122,84,0.15);
+}
+.contact-info{flex:1;}
+.contact-name{font-size:14px;font-weight:700;}
+.contact-apt{font-size:11px;color:var(--text2);margin-top:1px;font-weight:600;}
+.contact-phone{font-size:12px;color:var(--text2);margin-top:4px;}
+
+/* ===== MY APT CARD ===== */
+.my-apt-card{
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+  border-radius:var(--radius);padding:20px;color:#fff;
+  margin-bottom:14px;position:relative;overflow:hidden;
+}
+.my-apt-num{font-size:48px;font-weight:900;line-height:1;letter-spacing:-2px;margin-bottom:4px;position:relative;}
+.my-apt-label{font-size:13px;font-weight:600;opacity:0.75;position:relative;}
+.my-apt-status{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;
+  margin-top:14px;position:relative;
+}
+.my-apt-status.paid{background:rgba(22,163,74,0.25);color:#4ade80;}
+.my-apt-status.unpaid{background:rgba(220,38,38,0.25);color:#fca5a5;}
+
+/* ===== LOGOUT BTN ===== */
+.btn-logout{
+  background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);
+  border-radius:8px;padding:5px 10px;
+  color:rgba(255,255,255,0.85);font-size:11px;font-family:var(--font);
+  cursor:pointer;font-weight:600;transition:background 0.2s;
+}
+.btn-logout:hover{background:rgba(255,255,255,0.25);}
+
+/* ===== SEARCH ===== */
+.search-wrap{position:relative;margin-bottom:14px;}
+.search-wrap input{width:100%;padding-right:38px;background:#fff;}
+.search-icon{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:16px;}
+
+/* ===== SEC HEADER ===== */
+.sec-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+</style>
+</head>
+<body>
+
+<!-- ===== LOGIN SCREEN ===== -->
+<div id="login-screen">
+  <div class="login-bg-pattern"></div>
+  <div class="login-glow"></div>
+  <div class="login-glow2"></div>
+
+  <div class="login-logo">
+    <div class="login-icon">🏢</div>
+    <h1>سنديك 62</h1>
+    <p>تسيير عمارة — رقم 62</p>
+  </div>
+
+  <div class="login-box">
+    <div class="role-tabs">
+      <button class="role-tab active" onclick="selectRole('syndic',this)">🔑 السنديك</button>
+      <button class="role-tab" onclick="selectRole('resident',this)">🏠 الساكن</button>
+    </div>
+
+    <div id="syndic-fields">
+      <div class="login-field">
+        <label>اسم المستخدم</label>
+        <input type="text" id="login-user" placeholder="syndic62" autocomplete="username"/>
+      </div>
+      <div class="login-field">
+        <label>كلمة المرور</label>
+        <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/>
+      </div>
+    </div>
+
+    <div id="resident-fields" style="display:none">
+      <div class="login-field">
+        <label>رقم الشقة</label>
+        <input type="text" id="res-apt" placeholder="مثال: 12" autocomplete="username"/>
+      </div>
+      <div class="login-field">
+        <label>كلمة المرور</label>
+        <input type="password" id="res-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/>
+      </div>
+    </div>
+
+    <button class="btn-login" onclick="doLogin()" id="login-btn">
+      دخول ←
+    </button>
+    <div class="login-error" id="login-error">اسم المستخدم أو كلمة المرور غير صحيحة</div>
+    <div class="demo-hint">
+      السنديك: <strong>syndic62 / admin123</strong><br/>
+      الساكن: رقم الشقة / <strong>1234</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ===== APP SHELL ===== -->
+<div id="app-shell" style="display:none">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="header-title" id="hdr-title">🏢 عمارة السنديك — 62</div>
+    <div class="header-sub" id="hdr-sub">21 شقة</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <div id="hdr-user-area" style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+      <div class="header-date" id="hdr-date"></div>
+      <div class="header-user-badge" id="hdr-user-badge"></div>
+    </div>
+    <button class="notif-bell" onclick="openNotifs()">🔔</button>
+    <button class="btn-logout" onclick="doLogout()">خروج</button>
+  </div>
+</div>
+
+<!-- PAGES -->
+<!-- SYNDIC: Dashboard -->
+<div class="page active" id="pg-dashboard">
+  <div class="stats-grid" id="dash-stats"></div>
+  <div class="card">
+    <div class="card-title"><div class="card-icon">📊</div>ملخص الشهر الحالي</div>
+    <div id="dash-summary"></div>
+  </div>
+  <div class="card">
+    <div class="card-title"><div class="card-icon">⚠️</div>المتأخرون عن الأداء</div>
+    <div id="dash-unpaid"></div>
+  </div>
+</div>
+
+<!-- SYNDIC: Payments -->
+<div class="page" id="pg-payments">
+  <div class="filter-row">
+    <select id="pay-month" onchange="renderPayments()"></select>
+    <select id="pay-year" onchange="renderPayments()"></select>
+    <button class="btn btn-sm" onclick="exportCSV()">⬇ تصدير</button>
+  </div>
+  <div class="card">
+    <div class="sec-header">
+      <div class="card-title" style="margin:0"><div class="card-icon">📋</div>جدول المستحقات</div>
+    </div>
+    <div class="tbl-wrap"><table id="pay-table"></table></div>
+  </div>
+</div>
+
+<!-- SYNDIC: Expenses -->
+<div class="page" id="pg-expenses">
+  <div class="filter-row">
+    <select id="exp-month" onchange="renderExpenses()"></select>
+    <select id="exp-year" onchange="renderExpenses()"></select>
+    <button class="btn btn-primary btn-sm" onclick="openExpModal()">+ إضافة</button>
+  </div>
+  <div class="stats-grid" id="exp-stats"></div>
+  <div class="card">
+    <div class="card-title"><div class="card-icon">💸</div>سجل المصاريف</div>
+    <div class="tbl-wrap"><table id="exp-table"></table></div>
+  </div>
+</div>
+
+<!-- SYNDIC: Contacts -->
+<div class="page" id="pg-contacts">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="contact-search" placeholder="بحث عن ساكن أو شقة..." oninput="renderContacts()"/>
+  </div>
+  <button class="btn btn-primary btn-block" onclick="openContactModal(null)" style="margin-bottom:12px;">+ إضافة ساكن</button>
+  <div id="contacts-list"></div>
+</div>
+
+<!-- SYNDIC: More -->
+<div class="page" id="pg-more">
+  <div class="card">
+    <div class="sec-header">
+      <div class="card-title" style="margin:0"><div class="card-icon">⚙️</div>الإعدادات</div>
+    </div>
+    <div class="form-group"><label>اسم العمارة</label><input id="s-name" onchange="updateSettings()"/></div>
+    <div class="form-group"><label>عدد الشقق</label><input type="number" id="s-count" min="1" max="200" onchange="updateSettings()"/></div>
+    <div class="form-group"><label>الاشتراك الشهري (درهم)</label><input type="number" id="s-fee" min="1" onchange="updateSettings()"/></div>
+  </div>
+</div>
+
+<!-- RESIDENT: My Apartment Page -->
+<div class="page" id="pg-resident">
+  <div class="my-apt-card" id="my-apt-card">
+    <div class="my-apt-num" id="my-apt-num">—</div>
+    <div class="my-apt-label">شقتي</div>
+    <div class="my-apt-status" id="my-apt-status"></div>
+  </div>
+  <div class="card">
+    <div class="card-title"><div class="card-icon">📅</div>سجل الأداء</div>
+    <div id="res-history"></div>
+  </div>
+</div>
+
+<!-- RESIDENT: Building Info -->
+<div class="page" id="pg-res-building">
+  <div class="card">
+    <div class="card-title"><div class="card-icon">🏢</div>معلومات العمارة</div>
+    <div id="res-building-info"></div>
+  </div>
+  <div class="card">
+    <div class="card-title"><div class="card-icon">📊</div>إحصائيات هذا الشهر</div>
+    <div class="stats-grid" id="res-stats"></div>
+  </div>
+</div>
+
+</div><!-- end app-shell -->
+
+<!-- ===== BOTTOM NAV ===== -->
+<nav class="bottom-nav" id="main-nav" style="display:none">
+  <div id="syndic-nav" style="display:contents">
+    <button class="bnav-btn active" onclick="switchPage('dashboard',this)">
+      <div class="bnav-icon-wrap">📊</div>
+      الرئيسية
+    </button>
+    <button class="bnav-btn" onclick="switchPage('payments',this)">
+      <div class="bnav-icon-wrap">📋</div>
+      المستحقات
+    </button>
+    <button class="bnav-btn" onclick="switchPage('expenses',this)">
+      <div class="bnav-icon-wrap">💸</div>
+      المصاريف
+    </button>
+    <button class="bnav-btn" onclick="switchPage('contacts',this)">
+      <div class="bnav-icon-wrap">👥</div>
+      السكان
+    </button>
+    <button class="bnav-btn" onclick="switchPage('more',this)">
+      <div class="bnav-icon-wrap">⋯</div>
+      المزيد
+    </button>
+  </div>
+  <div id="resident-nav" style="display:none;contents">
+    <button class="bnav-btn active" onclick="switchPage('resident',this)">
+      <div class="bnav-icon-wrap">🏠</div>
+      شقتي
+    </button>
+    <button class="bnav-btn" onclick="switchPage('res-building',this)">
+      <div class="bnav-icon-wrap">🏢</div>
+      العمارة
+    </button>
+  </div>
+</nav>
+
+<!-- ===== MODALS ===== -->
+<div class="modal-bg" id="exp-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h3>💸 إضافة مصروف</h3>
+    <div class="form-group"><label>النوع</label>
+      <select id="exp-type"><option>فاتورة الكهرباء</option><option>التنظيف</option><option>صيانة</option><option>أخرى</option></select>
+    </div>
+    <div class="form-group"><label>الوصف</label><input type="text" id="exp-desc" placeholder="تفاصيل..."/></div>
+    <div class="form-group"><label>المبلغ (درهم)</label><input type="number" id="exp-amount" placeholder="0" min="0"/></div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('exp-modal')">إلغاء</button>
+      <button class="btn btn-primary" onclick="saveExpense()">💾 حفظ</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="contact-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h3>👤 بيانات الساكن</h3>
+    <div class="form-group"><label>الشقة</label><select id="c-apt" style="width:100%;"></select></div>
+    <div class="form-group"><label>الاسم الكامل</label><input type="text" id="c-name" placeholder="اسم الساكن"/></div>
+    <div class="form-group"><label>رقم الهاتف</label><input type="tel" id="c-phone" placeholder="+212..."/></div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('contact-modal')">إلغاء</button>
+      <button class="btn btn-primary" onclick="saveContact()">💾 حفظ</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== CONSTANTS =====
+const MONTHS = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+const now = new Date();
+
+let S = {
+  aptCount: 21,
+  fee: 50,
+  buildingName: 'عمارة السنديك — رقم 62',
+  aptNumbers: Array.from({length:21}, (_,i) => (i+1).toString()),
+  payments: {},
+  expenses: [],
+  contacts: {},
+  syndicPass: 'admin123',
+  residentPass: '1234'
+};
+
+let currentUser = null;
+
+// ===== STORAGE =====
+function load() {
+  try {
+    const s = localStorage.getItem('syndic62');
+    if (s) {
+      const d = JSON.parse(s);
+      S = { ...S, ...d };
+    }
+  } catch (e) {
+    console.error('خطأ في التحميل:', e);
+  }
+}
+
+function save() {
+  try {
+    localStorage.setItem('syndic62', JSON.stringify(S));
+  } catch (e) {
+    console.error('خطأ في الحفظ:', e);
+  }
+}
+
+// ===== AUTH =====
+function selectRole(role, btn) {
+  document.querySelectorAll('.role-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  
+  if (role === 'syndic') {
+    document.getElementById('syndic-fields').style.display = 'block';
+    document.getElementById('resident-fields').style.display = 'none';
+  } else {
+    document.getElementById('syndic-fields').style.display = 'none';
+    document.getElementById('resident-fields').style.display = 'block';
+  }
+}
+
+function doLogin() {
+  const activeTab = document.querySelector('.role-tab.active');
+  const role = activeTab.textContent.includes('السنديك') ? 'syndic' : 'resident';
+  
+  let valid = false;
+  if (role === 'syndic') {
+    const user = document.getElementById('login-user').value;
+    const pass = document.getElementById('login-pass').value;
+    valid = user === 'syndic62' && pass === S.syndicPass;
+  } else {
+    const apt = document.getElementById('res-apt').value;
+    const pass = document.getElementById('res-pass').value;
+    valid = S.aptNumbers.includes(apt) && pass === S.residentPass;
+  }
+  
+  if (valid) {
+    currentUser = { role, apt: role === 'resident' ? document.getElementById('res-apt').value : null };
+    showApp();
+  } else {
+    document.getElementById('login-error').style.display = 'block';
+    setTimeout(() => document.getElementById('login-error').style.display = 'none', 3000);
+  }
+}
+
+function doLogout() {
+  currentUser = null;
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('app-shell').style.display = 'none';
+  document.getElementById('main-nav').style.display = 'none';
+  document.getElementById('login-user').value = '';
+  document.getElementById('login-pass').value = '';
+  document.getElementById('res-apt').value = '';
+  document.getElementById('res-pass').value = '';
+}
+
+function showApp() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app-shell').style.display = 'block';
+  document.getElementById('main-nav').style.display = 'flex';
+  
+  if (currentUser.role === 'syndic') {
+    document.getElementById('syndic-nav').style.display = 'contents';
+    document.getElementById('resident-nav').style.display = 'none';
+  } else {
+    document.getElementById('syndic-nav').style.display = 'none';
+    document.getElementById('resident-nav').style.display = 'contents';
+  }
+  
+  updateHeader();
+  renderDashboard();
+}
+
+function updateHeader() {
+  const dateStr = now.toLocaleDateString('ar-MA', { weekday: 'short', month: 'short', day: 'numeric' });
+  document.getElementById('hdr-date').textContent = dateStr;
+  document.getElementById('hdr-sub').textContent = S.aptCount + ' شقة';
+  
+  if (currentUser.role === 'resident') {
+    document.getElementById('hdr-title').textContent = '🏠 شقة رقم ' + currentUser.apt;
+    document.getElementById('hdr-user-badge').textContent = '👤 ساكن';
+  } else {
+    document.getElementById('hdr-title').textContent = '🏢 ' + S.buildingName;
+    document.getElementById('hdr-user-badge').textContent = '🔑 السنديك';
+  }
+}
+
+// ===== PAGES =====
+function switchPage(page, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('pg-' + page).classList.add('active');
+  
+  document.querySelectorAll('.bnav-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  
+  if (page === 'dashboard') renderDashboard();
+  else if (page === 'payments') renderPayments();
+  else if (page === 'expenses') renderExpenses();
+  else if (page === 'contacts') renderContacts();
+  else if (page === 'resident') renderResidentPage();
+  else if (page === 'res-building') renderResidentBuilding();
+}
+
+// ===== DASHBOARD =====
+function renderDashboard() {
+  if (currentUser.role !== 'syndic') return;
+  
+  const m = now.getMonth();
+  const y = now.getFullYear();
+  const key = y + '-' + (m+1);
+  
+  const payments = S.payments[key] || {};
+  const paid = Object.values(payments).filter(p => p).length;
+  const total = S.aptCount;
+  const expenses = S.expenses.filter(e => e.month === key);
+  const totalExp = expenses.reduce((s, e) => s + (e.amount || 0), 0);
+  const totalFee = total * S.fee;
+  
+  document.getElementById('dash-stats').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-val green">${paid}/${total}</div>
+      <div class="stat-lbl">المدفوعين</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val blue">${(paid * S.fee).toLocaleString()}</div>
+      <div class="stat-lbl">المجموع المدفوع</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val red">${total - paid}</div>
+      <div class="stat-lbl">المتأخرين</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val amber">${totalExp.toLocaleString()}</div>
+      <div class="stat-lbl">المصاريف</div>
+    </div>
+  `;
+  
+  const percent = Math.round((paid / total) * 100);
+  document.getElementById('dash-summary').innerHTML = `
+    <p style="margin-bottom:10px;font-size:12px;color:var(--text2);">معدل الأداء: ${percent}%</p>
+    <div class="progress-bar"><div class="progress-fill" style="width:${percent}%"></div></div>
+  `;
+  
+  const unpaid = Object.entries(payments)
+    .filter(([_, p]) => !p)
+    .map(([apt, _]) => parseInt(apt));
+  
+  if (unpaid.length > 0) {
+    document.getElementById('dash-unpaid').innerHTML = unpaid.map(apt => {
+      const contact = S.contacts[apt] || { name: 'غير معروف' };
+      return `<div style="padding:8px;background:var(--danger-light);color:var(--danger);border-radius:8px;margin-bottom:6px;font-size:12px;">
+        الشقة ${apt}: ${contact.name}
+      </div>`;
+    }).join('');
+  } else {
+    document.getElementById('dash-unpaid').innerHTML = '<p style="color:var(--success);font-size:12px;">✅ جميع السكان مسددوا الالتزامات</p>';
+  }
+}
+
+// ===== PAYMENTS =====
+function renderPayments() {
+  if (currentUser.role !== 'syndic') return;
+  
+  const m = now.getMonth();
+  const y = now.getFullYear();
+  
+  const payMonthEl = document.getElementById('pay-month');
+  const payYearEl = document.getElementById('pay-year');
+  
+  if (payMonthEl.children.length === 0) {
+    MONTHS.forEach((month, i) => {
+      const opt = document.createElement('option');
+      opt.value = i + 1;
+      opt.textContent = month;
+      if (i === m) opt.selected = true;
+      payMonthEl.appendChild(opt);
+    });
+    
+    for (let i = y - 2; i <= y + 2; i++) {
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = i;
+      if (i === y) opt.selected = true;
+      payYearEl.appendChild(opt);
+    }
+  }
+  
+  const selMonth = parseInt(payMonthEl.value);
+  const selYear = parseInt(payYearEl.value);
+  const key = selYear + '-' + selMonth;
+  const payments = S.payments[key] || {};
+  
+  let html = '<thead><tr><th>الشقة</th><th>الاسم</th><th>الحالة</th></tr></thead><tbody>';
+  
+  S.aptNumbers.forEach(apt => {
+    const isPaid = payments[apt];
+    const contact = S.contacts[apt] || { name: 'بدون بيانات' };
+    const status = isPaid ? '<span class="badge badge-paid">✓ مسدد</span>' : '<span class="badge badge-unpaid">✗ متأخر</span>';
+    html += `<tr><td>${apt}</td><td>${contact.name}</td><td>${status}</td></tr>`;
+  });
+  
+  html += '</tbody>';
+  document.getElementById('pay-table').innerHTML = html;
+}
+
+// ===== EXPENSES =====
+function renderExpenses() {
+  if (currentUser.role !== 'syndic') return;
+  
+  const m = now.getMonth();
+  const y = now.getFullYear();
+  
+  const expMonthEl = document.getElementById('exp-month');
+  const expYearEl = document.getElementById('exp-year');
+  
+  if (expMonthEl.children.length === 0) {
+    MONTHS.forEach((month, i) => {
+      const opt = document.createElement('option');
+      opt.value = i + 1;
+      opt.textContent = month;
+      if (i === m) opt.selected = true;
+      expMonthEl.appendChild(opt);
+    });
+    
+    for (let i = y - 2; i <= y + 2; i++) {
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = i;
+      if (i === y) opt.selected = true;
+      expYearEl.appendChild(opt);
+    }
+  }
+  
+  const selMonth = parseInt(expMonthEl.value);
+  const selYear = parseInt(expYearEl.value);
+  const key = selYear + '-' + selMonth;
+  
+  const expenses = S.expenses.filter(e => e.month === key);
+  const total = expenses.reduce((s, e) => s + (e.amount || 0), 0);
+  
+  document.getElementById('exp-stats').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-val blue">${expenses.length}</div>
+      <div class="stat-lbl">عدد المصاريف</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val amber">${total.toLocaleString()}</div>
+      <div class="stat-lbl">الإجمالي</div>
+    </div>
+  `;
+  
+  let html = '<thead><tr><th>النوع</th><th>الوصف</th><th>المبلغ</th></tr></thead><tbody>';
+  expenses.forEach(e => {
+    html += `<tr><td>${e.type}</td><td>${e.desc}</td><td>${e.amount}</td></tr>`;
+  });
+  html += '</tbody>';
+  document.getElementById('exp-table').innerHTML = html;
+}
+
+function openExpModal() {
+  document.getElementById('exp-modal').classList.add('open');
+}
+
+function saveExpense() {
+  const type = document.getElementById('exp-type').value;
+  const desc = document.getElementById('exp-desc').value;
+  const amount = parseInt(document.getElementById('exp-amount').value) || 0;
+  
+  const m = now.getMonth() + 1;
+  const y = now.getFullYear();
+  const month = y + '-' + m;
+  
+  S.expenses.push({ type, desc, amount, month, date: new Date().toISOString() });
+  save();
+  closeModal('exp-modal');
+  document.getElementById('exp-amount').value = '';
+  document.getElementById('exp-desc').value = '';
+  renderExpenses();
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+// ===== CONTACTS =====
+function renderContacts() {
+  if (currentUser.role !== 'syndic') return;
+  
+  const search = document.getElementById('contact-search').value.toLowerCase();
+  const apts = S.aptNumbers.filter(apt => {
+    const contact = S.contacts[apt] || {};
+    return apt.includes(search) || (contact.name || '').toLowerCase().includes(search);
+  });
+  
+  const aptSelectEl = document.getElementById('c-apt');
+  if (aptSelectEl.children.length === 0) {
+    S.aptNumbers.forEach(apt => {
+      const opt = document.createElement('option');
+      opt.value = apt;
+      opt.textContent = 'الشقة ' + apt;
+      aptSelectEl.appendChild(opt);
+    });
+  }
+  
+  let html = '';
+  apts.forEach(apt => {
+    const contact = S.contacts[apt] || { name: '', phone: '' };
+    html += `
+      <div class="contact-card">
+        <div class="avatar">${apt}</div>
+        <div class="contact-info">
+          <div class="contact-name">${contact.name || 'بدون اسم'}</div>
+          <div class="contact-apt">الشقة ${apt}</div>
+          <div class="contact-phone">${contact.phone || 'بدون رقم'}</div>
+        </div>
+      </div>
+    `;
+  });
+  
+  document.getElementById('contacts-list').innerHTML = html;
+}
+
+function openContactModal(apt) {
+  document.getElementById('contact-modal').classList.add('open');
+}
+
+function saveContact() {
+  const apt = document.getElementById('c-apt').value;
+  const name = document.getElementById('c-name').value;
+  const phone = document.getElementById('c-phone').value;
+  
+  S.contacts[apt] = { name, phone };
+  save();
+  closeModal('contact-modal');
+  document.getElementById('c-name').value = '';
+  document.getElementById('c-phone').value = '';
+  renderContacts();
+}
+
+// ===== RESIDENT =====
+function renderResidentPage() {
+  if (currentUser.role !== 'resident') return;
+  
+  const apt = currentUser.apt;
+  const contact = S.contacts[apt] || {};
+  
+  document.getElementById('my-apt-num').textContent = apt;
+  
+  const m = now.getMonth() + 1;
+  const y = now.getFullYear();
+  const key = y + '-' + m;
+  const isPaid = (S.payments[key] || {})[apt];
+  
+  const statusEl = document.getElementById('my-apt-status');
+  if (isPaid) {
+    statusEl.className = 'my-apt-status paid';
+    statusEl.textContent = '✅ مسدد';
+  } else {
+    statusEl.className = 'my-apt-status unpaid';
+    statusEl.textContent = '❌ متأخر';
+  }
+  
+  let historyHtml = '';
+  for (let i = 0; i < 12; i++) {
+    const checkMonth = m - i;
+    const checkYear = checkMonth > 0 ? y : y - 1;
+    const checkKey = checkYear + '-' + (checkMonth > 0 ? checkMonth : checkMonth + 12);
+    const paid = (S.payments[checkKey] || {})[apt];
+    historyHtml += `<span style="display:inline-block;width:24px;height:24px;border-radius:6px;background:${paid ? '#16a34a' : '#dc2626'};margin:2px;"></span>`;
+  }
+  document.getElementById('res-history').innerHTML = historyHtml;
+}
+
+function renderResidentBuilding() {
+  if (currentUser.role !== 'resident') return;
+  
+  const m = now.getMonth() + 1;
+  const y = now.getFullYear();
+  const key = y + '-' + m;
+  
+  const payments = S.payments[key] || {};
+  const paid = Object.values(payments).filter(p => p).length;
+  const total = S.aptCount;
+  
+  document.getElementById('res-building-info').innerHTML = `
+    <div style="font-size:13px;color:var(--text2);">
+      <p><strong>اسم العمارة:</strong> ${S.buildingName}</p>
+      <p><strong>عدد الشقق:</strong> ${total}</p>
+      <p><strong>الاشتراك الشهري:</strong> ${S.fee} درهم</p>
+    </div>
+  `;
+  
+  document.getElementById('res-stats').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-val blue">${total}</div>
+      <div class="stat-lbl">إجمالي الشقق</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val green">${paid}</div>
+      <div class="stat-lbl">المسددين</div>
+    </div>
+  `;
+}
+
+// ===== SETTINGS =====
+function updateSettings() {
+  S.buildingName = document.getElementById('s-name').value;
+  S.aptCount = parseInt(document.getElementById('s-count').value) || 21;
+  S.fee = parseInt(document.getElementById('s-fee').value) || 50;
+  save();
+}
+
+// ===== EXPORT =====
+function exportCSV() {
+  const m = parseInt(document.getElementById('pay-month').value);
+  const y = parseInt(document.getElementById('pay-year').value);
+  const key = y + '-' + m;
+  const payments = S.payments[key] || {};
+  
+  let csv = 'الشقة,الاسم,الحالة\n';
+  S.aptNumbers.forEach(apt => {
+    const contact = S.contacts[apt] || { name: '' };
+    const status = payments[apt] ? 'مسدد' : 'متأخر';
+    csv += `${apt},"${contact.name}",${status}\n`;
+  });
+  
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = `payments_${y}_${m}.csv`;
+  link.click();
+}
+
+// ===== INIT =====
+function init() {
+  load();
+  
+  document.getElementById('s-name').value = S.buildingName;
+  document.getElementById('s-count').value = S.aptCount;
+  document.getElementById('s-fee').value = S.fee;
+  
+  // Mark payment demo
+  const m = now.getMonth() + 1;
+  const y = now.getFullYear();
+  const key = y + '-' + m;
+  if (!S.payments[key]) {
+    S.payments[key] = {};
+    for (let i = 1; i <= 10; i++) {
+      S.payments[key][i] = true;
+    }
+    save();
+  }
+}
+
+// Prevent double tap zoom
+document.addEventListener('touchend', function(e) {
+  if (e.touches.length === 0) {
+    e.preventDefault();
+  }
+}, false);
+
+init();
+</script>
+</body>
+</html>
