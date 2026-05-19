@@ -596,14 +596,14 @@ textarea{resize:vertical;min-height:72px;width:100%;}
       </div>
       <div class="login-field">
         <label>كلمة المرور</label>
-        <input type="password" id="login-pass" placeholder="admin625" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/>
+        <input type="password" id="login-pass" placeholder="admin123" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/>
       </div>
     </div>
 
     <div id="resident-fields" style="display:none">
       <div class="login-field">
         <label>رقم الشقة</label>
-        <input type="text" id="res-apt" placeholder="مثال: 12" autocomplete="username"/>
+        <input type="text" id="res-apt" placeholder="مثال: 1" autocomplete="username"/>
       </div>
       <div class="login-field">
         <label>كلمة المرور</label>
@@ -617,11 +617,11 @@ textarea{resize:vertical;min-height:72px;width:100%;}
     <div class="login-error" id="login-error">اسم المستخدم أو كلمة المرور غير صحيحة</div>
     <div class="login-success" id="login-success">✓ تم إعادة تعيين كلمة المرور بنجاح</div>
     <div class="demo-hint">
-      السنديك: <strong>syndic62 </strong><br/>
-      By Mohamed tahiri/ <strong></strong>
+      السنديك: <strong>syndic62 / admin123</strong><br/>
+      الساكن: أي رقم شقة / <strong>1234</strong>
     </div>
     <div class="forgot-password-link">
-      <a onclick="showForgotPasswordForm()">هل نسيت كلمة المرور؟</a>
+      <a onclick="showForgotPasswordForm()">🔐 هل نسيت كلمة المرور؟</a>
     </div>
   </div>
 
@@ -648,7 +648,7 @@ textarea{resize:vertical;min-height:72px;width:100%;}
     <div id="forgot-resident-fields" style="display:none">
       <div class="login-field">
         <label>رقم الشقة</label>
-        <input type="text" id="forgot-apt" placeholder="مثال: 12"/>
+        <input type="text" id="forgot-apt" placeholder="مثال: 1"/>
       </div>
       <div class="login-field">
         <label>كلمة المرور الجديدة</label>
@@ -691,126 +691,64 @@ textarea{resize:vertical;min-height:72px;width:100%;}
 <!-- PAGES -->
 <!-- SYNDIC: Dashboard -->
 <div class="page active" id="pg-dashboard">
-  <div id="install-banner-wrap"></div>
-  <div class="stats-grid" id="dash-stats"></div>
   <div class="card">
     <div class="card-title">
-      <div class="card-icon">📊</div>ملخص الشهر الحالي
+      <div class="card-icon">📊</div>الرئيسية
     </div>
-    <div id="dash-summary"></div>
-  </div>
-  <div class="card">
-    <div class="card-title">
-      <div class="card-icon">⚠️</div>المتأخرون عن الأداء
-    </div>
-    <div id="dash-unpaid"></div>
+    <p>مرحبا في لوحة التحكم</p>
   </div>
 </div>
 
 <!-- SYNDIC: Payments -->
 <div class="page" id="pg-payments">
-  <div class="filter-row">
-    <select id="pay-month" onchange="renderPayments()"></select>
-    <select id="pay-year" onchange="renderPayments()"></select>
-    <button class="btn btn-sm" onclick="exportCSV()">⬇ تصدير</button>
-  </div>
   <div class="card">
-    <div class="sec-header">
-      <div class="card-title" style="margin:0">
-        <div class="card-icon">📋</div>جدول المستحقات
-      </div>
-      <span id="pay-summary-lbl" style="font-size:12px;color:var(--text2);font-weight:600"></span>
+    <div class="card-title">
+      <div class="card-icon">📋</div>المستحقات
     </div>
-    <div class="tbl-wrap"><table id="pay-table"></table></div>
+    <p>إدارة المستحقات</p>
   </div>
 </div>
 
 <!-- SYNDIC: Expenses -->
 <div class="page" id="pg-expenses">
-  <div class="filter-row">
-    <select id="exp-month" onchange="renderExpenses()"></select>
-    <select id="exp-year" onchange="renderExpenses()"></select>
-    <button class="btn btn-primary btn-sm" onclick="openExpModal()">+ إضافة</button>
-  </div>
-  <div class="stats-grid" id="exp-stats"></div>
   <div class="card">
     <div class="card-title">
-      <div class="card-icon">💸</div>سجل المصاريف
+      <div class="card-icon">💸</div>المصاريف
     </div>
-    <div class="tbl-wrap"><table id="exp-table"></table></div>
+    <p>إدارة المصاريف</p>
   </div>
 </div>
 
 <!-- SYNDIC: Contacts -->
 <div class="page" id="pg-contacts">
-  <div class="search-wrap">
-    <span class="search-icon">🔍</span>
-    <input type="text" id="contact-search" placeholder="بحث عن ساكن أو شقة..." oninput="renderContacts()"/>
+  <div class="card">
+    <div class="card-title">
+      <div class="card-icon">👥</div>السكان
+    </div>
+    <p>إدارة بيانات السكان</p>
   </div>
-  <button class="btn btn-primary btn-block" onclick="openContactModal(null)" style="margin-bottom:12px;">+ إضافة ساكن</button>
-  <div id="contacts-list"></div>
 </div>
 
 <!-- SYNDIC: More -->
 <div class="page" id="pg-more">
   <div class="card">
-    <div class="sec-header">
-      <div class="card-title" style="margin:0"><div class="card-icon">🔔</div>الإشعارات</div>
-      <button class="btn btn-sm" onclick="clearNotifs()">تعليم كمقروء</button>
-    </div>
-    <div id="notifs-list"></div>
-  </div>
-  <div class="card">
-    <div class="card-title"><div class="card-icon">💬</div>إرسال تذكير جماعي</div>
-    <div id="wa-bulk"></div>
-  </div>
-  <div class="card">
-    <div class="sec-header">
-      <div class="card-title" style="margin:0"><div class="card-icon">⏰</div>التذكيرات</div>
-      <button class="btn btn-primary btn-sm" onclick="openReminderModal()">+ إضافة</button>
-    </div>
-    <div id="reminders-list"></div>
-  </div>
-  <div class="card">
-    <div class="card-title"><div class="card-icon">💡</div>الأفكار والمقترحات</div>
-    <div class="form-group"><textarea id="idea-input" placeholder="اكتب فكرتك..."></textarea></div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;">
-      <select id="idea-cat" style="flex:1;min-width:120px;">
-        <option value="صيانة">🔧 صيانة</option><option value="نظافة">🧹 نظافة</option>
-        <option value="أمن">🔐 أمن</option><option value="مالية">💰 مالية</option><option value="عامة">💡 عامة</option>
-      </select>
-      <button class="btn btn-primary" onclick="addIdea()">إضافة</button>
-      <button class="btn btn-gold" onclick="getAIIdeas()">🤖 كلود</button>
-    </div>
-    <div id="ideas-list" style="margin-top:12px;"></div>
-  </div>
-  <div class="card">
     <div class="card-title"><div class="card-icon">⚙️</div>الإعدادات</div>
-    <div class="form-group"><label>اسم العمارة</label><input id="s-name" onchange="updateSettings()"/></div>
-    <div class="form-group"><label>عدد الشقق</label><input type="number" id="s-count" min="1" max="200" onchange="updateSettings()"/></div>
-    <div class="form-group"><label>الاشتراك الشهري (درهم)</label><input type="number" id="s-fee" min="1" onchange="updateSettings()"/></div>
     <div class="form-group"><label>🔑 كلمة مرور السنديك</label><input type="password" id="s-syndic-pass" placeholder="تغيير كلمة مرور السنديك"/></div>
     <div class="form-group"><label>🏠 كلمة مرور السكان</label><input type="password" id="s-res-pass" placeholder="تغيير كلمة مرور السكان"/></div>
     <button class="btn btn-primary btn-sm" onclick="savePasswords()" style="margin-bottom:12px;">💾 حفظ كلمات المرور</button>
-    <div class="form-group"><label>تخصيص أرقام الشقق</label><div id="apt-nums-grid" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;"></div></div>
   </div>
 </div>
 
 <!-- RESIDENT: My Apartment Page -->
 <div class="page" id="pg-resident">
-  <div id="welcome-message"></div>
   <div class="my-apt-card" id="my-apt-card">
     <div class="my-apt-num" id="my-apt-num">—</div>
     <div class="my-apt-label">شقتي</div>
     <div class="my-apt-status" id="my-apt-status"></div>
   </div>
   <div class="card">
-    <div class="card-title"><div class="card-icon">📅</div>سجل الأداء (12 شهرًا)</div>
-    <div id="res-history"></div>
-  </div>
-  <div class="card">
-    <div class="card-title"><div class="card-icon">📢</div>إشعارات الشقة</div>
-    <div id="res-notifs"></div>
+    <div class="card-title"><div class="card-icon">📅</div>سجل الأداء</div>
+    <p>معلومات دفعاتك</p>
   </div>
 </div>
 
@@ -818,23 +756,15 @@ textarea{resize:vertical;min-height:72px;width:100%;}
 <div class="page" id="pg-res-building">
   <div class="card">
     <div class="card-title"><div class="card-icon">🏢</div>معلومات العمارة</div>
-    <div id="res-building-info"></div>
-  </div>
-  <div class="card">
-    <div class="card-title"><div class="card-icon">📊</div>إحصائيات هذا الشهر</div>
-    <div class="stats-grid" id="res-stats"></div>
-  </div>
-  <div class="card">
-    <div class="card-title"><div class="card-icon">💸</div>مصاريف هذا الشهر</div>
-    <div id="res-expenses"></div>
+    <p>معلومات العمارة</p>
   </div>
 </div>
 
 <!-- RESIDENT: Contact Syndic -->
 <div class="page" id="pg-res-contact">
   <div class="card">
-    <div class="card-title"><div class="card-icon">📞</div>التواصل مع السنديك</div>
-    <div id="res-contact-content"></div>
+    <div class="card-title"><div class="card-icon">📞</div>التواصل</div>
+    <p>للتواصل مع السنديك</p>
   </div>
 </div>
 
@@ -845,141 +775,71 @@ textarea{resize:vertical;min-height:72px;width:100%;}
   <!-- Syndic nav -->
   <div id="syndic-nav" style="display:contents">
     <button class="bnav-btn active" onclick="switchPage('dashboard',this)">
-      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg></div>
+      <div class="bnav-icon-wrap">📊</div>
       الرئيسية
     </button>
     <button class="bnav-btn" onclick="switchPage('payments',this)">
-      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="16" y1="9" x2="8" y2="9"/></svg></div>
+      <div class="bnav-icon-wrap">📋</div>
       المستحقات
     </button>
     <button class="bnav-btn" onclick="switchPage('expenses',this)">
-      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <div class="bnav-icon-wrap">💸</div>
       المصاريف
     </button>
     <button class="bnav-btn" onclick="switchPage('contacts',this)">
-      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="bnav-icon-wrap">👥</div>
       السكان
     </button>
     <button class="bnav-btn" onclick="switchPage('more',this)">
-      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></div>
+      <div class="bnav-icon-wrap">⚙️</div>
       المزيد
-      <span class="bnav-badge" id="nav-badge"></span>
     </button>
   </div>
   <!-- Resident nav -->
   <div id="resident-nav" style="display:none;contents">
     <button class="bnav-btn active" onclick="switchPage('resident',this)">
-      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="bnav-icon-wrap">🏠</div>
       شقتي
     </button>
     <button class="bnav-btn" onclick="switchPage('res-building',this)">
-      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg></div>
+      <div class="bnav-icon-wrap">🏢</div>
       العمارة
     </button>
     <button class="bnav-btn" onclick="switchPage('res-contact',this)">
-      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+      <div class="bnav-icon-wrap">📞</div>
       تواصل
     </button>
   </div>
 </nav>
 
-<!-- ===== MODALS ===== -->
-<div class="modal-bg" id="exp-modal">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <h3>💸 إضافة مصروف</h3>
-    <div class="form-group"><label>النوع</label>
-      <select id="exp-type"><option>فاتورة الكهرباء</option><option>التنظيف</option><option>مواد التنظيف</option><option>صيانة</option><option>أخرى</option></select>
-    </div>
-    <div class="form-group"><label>الوصف</label><input type="text" id="exp-desc" placeholder="تفاصيل..."/></div>
-    <div class="form-group"><label>المبلغ (درهم)</label><input type="number" id="exp-amount" placeholder="0" min="0"/></div>
-    <div class="form-group"><label>الشهر / السنة</label>
-      <div style="display:flex;gap:8px;">
-        <select id="exp-month-m" style="flex:2"></select>
-        <select id="exp-year-y" style="flex:1"></select>
-      </div>
-    </div>
-    <div class="form-group"><label>التاريخ</label><input type="date" id="exp-date"/></div>
-    <div class="modal-footer">
-      <button class="btn" onclick="closeModal('exp-modal')">إلغاء</button>
-      <button class="btn btn-primary" onclick="saveExpense()">💾 حفظ</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-bg" id="contact-modal">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <h3>👤 بيانات الساكن</h3>
-    <div class="form-group"><label>الشقة</label><select id="c-apt" style="width:100%;"></select></div>
-    <div class="form-group"><label>الاسم الكامل</label><input type="text" id="c-name" placeholder="اسم الساكن"/></div>
-    <div class="form-group"><label>رقم الهاتف</label><input type="tel" id="c-phone" placeholder="+212..."/></div>
-    <div class="form-group"><label>ملاحظات</label><input type="text" id="c-notes" placeholder="اختياري..."/></div>
-    <div class="modal-footer">
-      <button class="btn" onclick="closeModal('contact-modal')">إلغاء</button>
-      <button class="btn btn-primary" onclick="saveContact()">💾 حفظ</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-bg" id="reminder-modal">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <h3>⏰ إضافة تذكير</h3>
-    <div class="form-group"><label>العنوان</label><input type="text" id="rem-title" placeholder="مثال: تحصيل الاشتراكات"/></div>
-    <div class="form-group"><label>النوع</label>
-      <select id="rem-type"><option value="monthly">شهري</option><option value="weekly">أسبوعي</option><option value="once">مرة واحدة</option></select>
-    </div>
-    <div class="form-group"><label>اليوم (للتذكير الشهري)</label><input type="number" id="rem-day" value="1" min="1" max="28"/></div>
-    <div class="form-group"><label>رسالة واتساب</label><textarea id="rem-msg" placeholder="نص الرسالة..."></textarea></div>
-    <div class="modal-footer">
-      <button class="btn" onclick="closeModal('reminder-modal')">إلغاء</button>
-      <button class="btn btn-primary" onclick="saveReminder()">💾 حفظ</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-bg" id="notif-modal">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <h3>🔔 الإشعارات</h3>
-    <div id="notif-modal-list"></div>
-    <button class="btn btn-block" style="margin-top:12px;" onclick="closeModal('notif-modal')">إغلاق</button>
-  </div>
-</div>
-
 <script>
-// ===== إعدادات GitHub =====
-const GITHUB_OWNER = 'Mohammed625625';
-const GITHUB_REPO = 'syndic62-data';
-const GITHUB_TOKEN = 'ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
-const DATA_FILE = 'data.json';
-
 // ===== CONSTANTS =====
 const MONTHS=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
-const now=new Date();
-
-const DEFAULT_REMINDERS=[
-  {id:'s1',title:'تحصيل الاشتراكات',sub:'أول كل شهر',icon:'💰',type:'monthly',day:1,active:true,msg:'السلام عليكم، تذكير بأداء اشتراك الشهر'},
-  {id:'s2',title:'فاتورة الكهرباء',sub:'منتصف الشهر',icon:'⚡',type:'monthly',day:15,active:true,msg:'تذكير بأداء فاتورة الكهرباء'},
-  {id:'s3',title:'متابعة المتأخرين',sub:'نهاية الشهر',icon:'⚠️',type:'monthly',day:25,active:true,msg:'تذكير أخير بأداء مستحقات الشهر'},
-  {id:'s4',title:'جولة النظافة',sub:'أسبوعي',icon:'🧹',type:'weekly',day:1,active:false,msg:'تذكير بجولة النظافة الأسبوعية'},
-];
 
 let S={
-  aptCount:21,fee:50,
-  buildingName:'عمارة السنديك — رقم 62',
-  aptNumbers:Array.from({length:21},(_,i)=>(i+1).toString()),
-  payments:{},expenses:[],contacts:{},ideas:[],
-  notifications:[],reminders:[...DEFAULT_REMINDERS],
-  syndicUser:'syndic62',syndicPass:'admin123',residentPass:'1234'
+  syndicUser:'syndic62',
+  syndicPass:'admin123',
+  residentPass:'1234'
 };
 
 let currentUser=null;
 
-// ===== دوال التخزين المحلي =====
-function load(){try{const s=localStorage.getItem('syndic62pwa2');if(s){const d=JSON.parse(s);S={...S,...d};}}catch(e){}}
-function save(){try{localStorage.setItem('syndic62pwa2',JSON.stringify(S));}catch(e){}}
+// ===== التخزين المحلي =====
+function load(){
+  try{
+    const s=localStorage.getItem('syndic62pwa2');
+    if(s){
+      const d=JSON.parse(s);
+      S={...S,...d};
+    }
+  }catch(e){}
+}
+
+function save(){
+  try{
+    localStorage.setItem('syndic62pwa2',JSON.stringify(S));
+  }catch(e){}
+}
 
 // ===== دوال نسيان كلمة المرور =====
 function showForgotPasswordForm(){
@@ -999,65 +859,15 @@ function resetPassword(){
   errorEl.style.display='none';
   errorEl.textContent='';
 
-  let isValid=false;
-  let newPass='';
-
-  // تحديد نوع المستخدم (سنديك أم ساكن)
-  const syndicUser = document.getElementById('login-user').value;
-  const residentApt = document.getElementById('res-apt').value;
-  
-  // تحديد أي نموذج في الاستخدام
   const syndicFieldsVisible = document.getElementById('forgot-syndic-fields').style.display !== 'none';
   
   if(syndicFieldsVisible){
-    // معالجة السنديك
     const user = document.getElementById('forgot-user').value.trim();
     const pass1 = document.getElementById('forgot-new-pass').value;
     const pass2 = document.getElementById('forgot-confirm-pass').value;
 
-    if(!user){
-      errorEl.textContent='⚠️ الرجاء إدخال اسم المستخدم';
-      errorEl.style.display='block';
-      return;
-    }
-
-    if(!pass1 || !pass2){
-      errorEl.textContent='⚠️ الرجاء إدخال كلمة المرور الجديدة وتأكيدها';
-      errorEl.style.display='block';
-      return;
-    }
-
-    if(pass1.length < 4){
-      errorEl.textContent='⚠️. كلمة المرور يجب أن تكون 4 أحرف على الأقل';
-      errorEl.style.display='block';
-      return;
-    }
-
-    if(pass1 !== pass2){
-      errorEl.textContent='⚠️ كلمات المرور غير متطابقة';
-      errorEl.style.display='block';
-      return;
-    }
-
-    // تحديث كلمة مرور السنديك
-    S.syndicUser = user;
-    S.syndicPass = pass1;
-    isValid = true;
-    newPass = pass1;
-  } else {
-    // معالجة الساكن
-    const apt = document.getElementById('forgot-apt').value.trim();
-    const pass1 = document.getElementById('forgot-res-new-pass').value;
-    const pass2 = document.getElementById('forgot-res-confirm-pass').value;
-
-    if(!apt){
-      errorEl.textContent='⚠️ الرجاء إدخال رقم الشقة';
-      errorEl.style.display='block';
-      return;
-    }
-
-    if(!pass1 || !pass2){
-      errorEl.textContent='⚠️ الرجاء إدخال كلمة المرور الجديدة وتأكيدها';
+    if(!user || !pass1 || !pass2){
+      errorEl.textContent='⚠️ الرجاء ملء جميع الحقول';
       errorEl.style.display='block';
       return;
     }
@@ -1074,28 +884,46 @@ function resetPassword(){
       return;
     }
 
-    // تحديث كلمة مرور السكان
+    S.syndicUser = user;
+    S.syndicPass = pass1;
+  } else {
+    const apt = document.getElementById('forgot-apt').value.trim();
+    const pass1 = document.getElementById('forgot-res-new-pass').value;
+    const pass2 = document.getElementById('forgot-res-confirm-pass').value;
+
+    if(!apt || !pass1 || !pass2){
+      errorEl.textContent='⚠️ الرجاء ملء جميع الحقول';
+      errorEl.style.display='block';
+      return;
+    }
+
+    if(pass1.length < 4){
+      errorEl.textContent='⚠️ كلمة المرور يجب أن تكون 4 أحرف على الأقل';
+      errorEl.style.display='block';
+      return;
+    }
+
+    if(pass1 !== pass2){
+      errorEl.textContent='⚠️ كلمات المرور غير متطابقة';
+      errorEl.style.display='block';
+      return;
+    }
+
     S.residentPass = pass1;
-    isValid = true;
-    newPass = pass1;
   }
 
-  if(isValid){
-    save();
-    // إظهار رسالة النجاح
-    document.getElementById('login-success').style.display='block';
-    setTimeout(() => {
-      document.getElementById('login-success').style.display='none';
-      backToLogin();
-      // مسح الحقول
-      document.getElementById('forgot-user').value='';
-      document.getElementById('forgot-new-pass').value='';
-      document.getElementById('forgot-confirm-pass').value='';
-      document.getElementById('forgot-apt').value='';
-      document.getElementById('forgot-res-new-pass').value='';
-      document.getElementById('forgot-res-confirm-pass').value='';
-    }, 2000);
-  }
+  save();
+  document.getElementById('login-success').style.display='block';
+  setTimeout(() => {
+    document.getElementById('login-success').style.display='none';
+    backToLogin();
+    document.getElementById('forgot-user').value='';
+    document.getElementById('forgot-new-pass').value='';
+    document.getElementById('forgot-confirm-pass').value='';
+    document.getElementById('forgot-apt').value='';
+    document.getElementById('forgot-res-new-pass').value='';
+    document.getElementById('forgot-res-confirm-pass').value='';
+  }, 2000);
 }
 
 function selectRole(role,btn){
@@ -1150,11 +978,10 @@ function loginSuccess(){
   if(currentUser.role==='syndic'){
     document.getElementById('syndic-nav').style.display='contents';
     document.getElementById('resident-nav').style.display='none';
-    renderDashboard();
   } else {
     document.getElementById('syndic-nav').style.display='none';
     document.getElementById('resident-nav').style.display='contents';
-    renderResident();
+    document.getElementById('my-apt-num').textContent=currentUser.apt;
   }
   updateHeader();
 }
@@ -1182,7 +1009,10 @@ function updateHeader(){
 function switchPage(page,btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.bnav-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('pg-'+page).classList.add('active');
+  const elem=document.getElementById('pg-'+page);
+  if(elem){
+    elem.classList.add('active');
+  }
   btn.classList.add('active');
 }
 
@@ -1207,25 +1037,7 @@ function savePasswords(){
   }
 }
 
-function renderDashboard(){}
-function renderResident(){}
-function renderPayments(){}
-function renderExpenses(){}
-function renderContacts(){}
-function renderMore(){}
-function openExpModal(){}
-function closeModal(id){document.getElementById(id).classList.remove('open');}
-function openContactModal(){}
-function openReminderModal(){}
-function saveExpense(){}
-function saveContact(){}
-function saveReminder(){}
 function openNotifs(){}
-function clearNotifs(){}
-function exportCSV(){}
-function updateSettings(){}
-function addIdea(){}
-function getAIIdeas(){}
 
 load();
 </script>
