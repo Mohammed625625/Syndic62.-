@@ -269,6 +269,17 @@ td{padding:10px 8px;border-bottom:1px solid var(--border);color:var(--text);}
 tr:last-child td{border-bottom:none;}
 tr:hover td{background:var(--bg);}
 
+/* ===== CHECKMARK ===== */
+.chk{
+  width:28px;height:28px;border-radius:8px;
+  border:2px solid var(--border2);
+  display:inline-flex;align-items:center;justify-content:center;
+  cursor:pointer;background:var(--bg);
+  transition:all 0.2s;
+}
+.chk.on{background:var(--primary);border-color:var(--primary);box-shadow:0 2px 8px rgba(15,122,84,0.35);}
+.chk.on::after{content:'✓';color:#fff;font-size:14px;font-weight:800;}
+
 /* ===== BUTTONS ===== */
 .btn{
   display:inline-flex;align-items:center;gap:6px;
@@ -356,6 +367,49 @@ textarea{resize:vertical;min-height:72px;width:100%;}
 .form-group input,.form-group select,.form-group textarea{width:100%;}
 .modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:18px;}
 
+/* ===== NOTIF ===== */
+.notif-item{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--border);align-items:flex-start;}
+.notif-item:last-child{border:none;}
+.notif-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.notif-icon.warn{background:var(--warn-light);}
+.notif-icon.danger{background:var(--danger-light);}
+.notif-icon.success{background:var(--success-light);}
+.notif-icon.info{background:var(--accent-light);}
+.notif-body{flex:1;}
+.notif-title{font-size:13px;font-weight:700;margin-bottom:3px;}
+.notif-desc{font-size:12px;color:var(--text2);line-height:1.5;}
+.notif-time{font-size:10px;color:var(--text3);white-space:nowrap;font-weight:600;}
+.unread-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--danger);margin-left:5px;vertical-align:middle;}
+
+/* ===== REMINDER ===== */
+.rem-card{
+  display:flex;align-items:center;gap:12px;padding:13px;
+  background:#fff;border-radius:var(--radius-sm);margin-bottom:8px;
+  border:1.5px solid var(--border);transition:all 0.2s;
+}
+.rem-card.active-r{border-color:var(--primary);background:linear-gradient(135deg,#f0fdf8,#f7fffe);}
+.rem-icon{width:40px;height:40px;border-radius:12px;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.rem-body{flex:1;}
+.rem-title{font-size:13px;font-weight:700;}
+.rem-sub{font-size:11px;color:var(--text2);margin-top:2px;font-weight:500;}
+
+/* ===== TOGGLE ===== */
+.toggle{
+  width:44px;height:26px;border-radius:13px;
+  background:var(--border2);position:relative;
+  cursor:pointer;transition:background 0.25s;
+  flex-shrink:0;border:none;
+}
+.toggle.on{background:var(--primary);box-shadow:0 2px 8px rgba(15,122,84,0.3);}
+.toggle::after{
+  content:'';position:absolute;
+  width:20px;height:20px;border-radius:50%;
+  background:#fff;top:3px;right:3px;
+  transition:right 0.25s cubic-bezier(0.34,1.56,0.64,1);
+  box-shadow:0 2px 4px rgba(0,0,0,0.2);
+}
+.toggle.on::after{right:21px;}
+
 /* ===== CONTACT CARD ===== */
 .contact-card{
   background:#fff;border-radius:var(--radius-sm);
@@ -376,11 +430,98 @@ textarea{resize:vertical;min-height:72px;width:100%;}
 .contact-apt{font-size:11px;color:var(--text2);margin-top:1px;font-weight:600;}
 .contact-phone{font-size:12px;color:var(--text2);margin-top:4px;}
 
-/* ===== MY APT CARD ===== */
+/* ===== IDEA ===== */
+.idea-card{
+  background:#fff;border-radius:var(--radius-sm);
+  padding:13px;margin-bottom:8px;
+  border:1.5px solid var(--border);
+  transition:box-shadow 0.2s;
+}
+.idea-card:hover{box-shadow:var(--shadow);}
+.idea-text{font-size:13px;margin-bottom:9px;line-height:1.7;font-weight:500;}
+.idea-meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.ai-badge{
+  background:linear-gradient(135deg,var(--primary-light),var(--accent-light));
+  color:var(--primary-dark);padding:3px 9px;border-radius:20px;
+  font-size:10px;font-weight:700;border:1px solid rgba(15,122,84,0.2);
+}
+
+/* ===== WA PREVIEW ===== */
+.wa-preview{
+  background:linear-gradient(135deg,#e7f8ee,#f0fdf5);
+  border-radius:var(--radius-sm);padding:11px 13px;
+  font-size:12px;color:#075E54;
+  border:1px solid rgba(37,211,102,0.3);margin-top:9px;
+}
+.wa-preview-label{font-size:10px;color:#25D366;font-weight:700;margin-bottom:5px;}
+
+/* ===== UNPAID CHIPS ===== */
+.unpaid-chip{
+  background:linear-gradient(135deg,var(--danger-light),#fff1f1);
+  border:1px solid rgba(220,38,38,0.25);border-radius:var(--radius-xs);
+  padding:7px 11px;font-size:12px;margin:3px;font-weight:600;
+  display:inline-flex;align-items:center;gap:6px;
+}
+
+/* ===== SECTION HEADER ===== */
+.sec-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+
+/* ===== SEARCH ===== */
+.search-wrap{position:relative;margin-bottom:14px;}
+.search-wrap input{width:100%;padding-right:38px;background:#fff;}
+.search-icon{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:16px;}
+
+/* ===== INSTALL BANNER ===== */
+.install-banner{
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+  border-radius:var(--radius);padding:14px;margin-bottom:14px;
+  display:flex;align-items:center;gap:12px;color:#fff;
+  box-shadow:0 4px 20px rgba(7,61,41,0.3);
+}
+.install-banner-text{flex:1;font-size:13px;}
+.install-banner-text strong{display:block;font-size:15px;margin-bottom:3px;font-weight:800;}
+
+/* ===== RESIDENT CARD (login page) ===== */
+.resident-info-banner{
+  background:linear-gradient(135deg,var(--gold-light),#fff8ee);
+  border:1.5px solid rgba(201,147,58,0.3);
+  border-radius:var(--radius-sm);padding:12px 14px;
+  margin-bottom:14px;display:flex;align-items:center;gap:10px;
+}
+.resident-apt-badge{
+  background:linear-gradient(135deg,var(--gold),#a87228);
+  color:#fff;font-weight:800;font-size:15px;
+  width:44px;height:44px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;box-shadow:0 3px 10px rgba(201,147,58,0.3);
+}
+.resident-info-text h4{font-size:14px;font-weight:700;color:var(--text);}
+.resident-info-text p{font-size:12px;color:var(--text2);margin-top:2px;font-weight:500;}
+
+/* ===== LOGOUT BTN in header ===== */
+.btn-logout{
+  background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);
+  border-radius:8px;padding:5px 10px;
+  color:rgba(255,255,255,0.85);font-size:11px;font-family:var(--font);
+  cursor:pointer;font-weight:600;transition:background 0.2s;
+}
+.btn-logout:hover{background:rgba(255,255,255,0.25);}
+
+/* ===== RESIDENT VIEW ===== */
 .my-apt-card{
   background:linear-gradient(135deg,var(--primary-dark),var(--primary));
   border-radius:var(--radius);padding:20px;color:#fff;
   margin-bottom:14px;position:relative;overflow:hidden;
+}
+.my-apt-card::before{
+  content:'';position:absolute;top:-30px;left:-30px;
+  width:120px;height:120px;border-radius:50%;
+  background:rgba(255,255,255,0.06);
+}
+.my-apt-card::after{
+  content:'';position:absolute;bottom:-20px;right:-10px;
+  width:80px;height:80px;border-radius:50%;
+  background:rgba(255,255,255,0.05);
 }
 .my-apt-num{font-size:48px;font-weight:900;line-height:1;letter-spacing:-2px;margin-bottom:4px;position:relative;}
 .my-apt-label{font-size:13px;font-weight:600;opacity:0.75;position:relative;}
@@ -392,22 +533,14 @@ textarea{resize:vertical;min-height:72px;width:100%;}
 .my-apt-status.paid{background:rgba(22,163,74,0.25);color:#4ade80;}
 .my-apt-status.unpaid{background:rgba(220,38,38,0.25);color:#fca5a5;}
 
-/* ===== LOGOUT BTN ===== */
-.btn-logout{
-  background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);
-  border-radius:8px;padding:5px 10px;
-  color:rgba(255,255,255,0.85);font-size:11px;font-family:var(--font);
-  cursor:pointer;font-weight:600;transition:background 0.2s;
+/* ===== RIPPLE ===== */
+.ripple{
+  position:absolute;border-radius:50%;
+  background:rgba(255,255,255,0.35);
+  transform:scale(0);animation:ripple-anim 0.5s linear;
+  pointer-events:none;
 }
-.btn-logout:hover{background:rgba(255,255,255,0.25);}
-
-/* ===== SEARCH ===== */
-.search-wrap{position:relative;margin-bottom:14px;}
-.search-wrap input{width:100%;padding-right:38px;background:#fff;}
-.search-icon{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:16px;}
-
-/* ===== SEC HEADER ===== */
-.sec-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+@keyframes ripple-anim{to{transform:scale(4);opacity:0;}}
 </style>
 </head>
 <body>
@@ -477,7 +610,9 @@ textarea{resize:vertical;min-height:72px;width:100%;}
       <div class="header-date" id="hdr-date"></div>
       <div class="header-user-badge" id="hdr-user-badge"></div>
     </div>
-    <button class="notif-bell" onclick="openNotifs()">🔔</button>
+    <button class="notif-bell" onclick="openNotifs()" id="notif-bell-btn">
+      🔔<div class="notif-dot" id="notif-dot"></div>
+    </button>
     <button class="btn-logout" onclick="doLogout()">خروج</button>
   </div>
 </div>
@@ -485,13 +620,18 @@ textarea{resize:vertical;min-height:72px;width:100%;}
 <!-- PAGES -->
 <!-- SYNDIC: Dashboard -->
 <div class="page active" id="pg-dashboard">
+  <div id="install-banner-wrap"></div>
   <div class="stats-grid" id="dash-stats"></div>
   <div class="card">
-    <div class="card-title"><div class="card-icon">📊</div>ملخص الشهر الحالي</div>
+    <div class="card-title">
+      <div class="card-icon">📊</div>ملخص الشهر الحالي
+    </div>
     <div id="dash-summary"></div>
   </div>
   <div class="card">
-    <div class="card-title"><div class="card-icon">⚠️</div>المتأخرون عن الأداء</div>
+    <div class="card-title">
+      <div class="card-icon">⚠️</div>المتأخرون عن الأداء
+    </div>
     <div id="dash-unpaid"></div>
   </div>
 </div>
@@ -505,7 +645,10 @@ textarea{resize:vertical;min-height:72px;width:100%;}
   </div>
   <div class="card">
     <div class="sec-header">
-      <div class="card-title" style="margin:0"><div class="card-icon">📋</div>جدول المستحقات</div>
+      <div class="card-title" style="margin:0">
+        <div class="card-icon">📋</div>جدول المستحقات
+      </div>
+      <span id="pay-summary-lbl" style="font-size:12px;color:var(--text2);font-weight:600"></span>
     </div>
     <div class="tbl-wrap"><table id="pay-table"></table></div>
   </div>
@@ -520,7 +663,9 @@ textarea{resize:vertical;min-height:72px;width:100%;}
   </div>
   <div class="stats-grid" id="exp-stats"></div>
   <div class="card">
-    <div class="card-title"><div class="card-icon">💸</div>سجل المصاريف</div>
+    <div class="card-title">
+      <div class="card-icon">💸</div>سجل المصاريف
+    </div>
     <div class="tbl-wrap"><table id="exp-table"></table></div>
   </div>
 </div>
@@ -539,24 +684,62 @@ textarea{resize:vertical;min-height:72px;width:100%;}
 <div class="page" id="pg-more">
   <div class="card">
     <div class="sec-header">
-      <div class="card-title" style="margin:0"><div class="card-icon">⚙️</div>الإعدادات</div>
+      <div class="card-title" style="margin:0"><div class="card-icon">🔔</div>الإشعارات</div>
+      <button class="btn btn-sm" onclick="clearNotifs()">تعليم كمقروء</button>
     </div>
+    <div id="notifs-list"></div>
+  </div>
+  <div class="card">
+    <div class="card-title"><div class="card-icon">💬</div>إرسال تذكير جماعي</div>
+    <div id="wa-bulk"></div>
+  </div>
+  <div class="card">
+    <div class="sec-header">
+      <div class="card-title" style="margin:0"><div class="card-icon">⏰</div>التذكيرات</div>
+      <button class="btn btn-primary btn-sm" onclick="openReminderModal()">+ إضافة</button>
+    </div>
+    <div id="reminders-list"></div>
+  </div>
+  <div class="card">
+    <div class="card-title"><div class="card-icon">💡</div>الأفكار والمقترحات</div>
+    <div class="form-group"><textarea id="idea-input" placeholder="اكتب فكرتك..."></textarea></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <select id="idea-cat" style="flex:1;min-width:120px;">
+        <option value="صيانة">🔧 صيانة</option><option value="نظافة">🧹 نظافة</option>
+        <option value="أمن">🔐 أمن</option><option value="مالية">💰 مالية</option><option value="عامة">💡 عامة</option>
+      </select>
+      <button class="btn btn-primary" onclick="addIdea()">إضافة</button>
+      <button class="btn btn-gold" onclick="getAIIdeas()">🤖 كلود</button>
+    </div>
+    <div id="ideas-list" style="margin-top:12px;"></div>
+  </div>
+  <div class="card">
+    <div class="card-title"><div class="card-icon">⚙️</div>الإعدادات</div>
     <div class="form-group"><label>اسم العمارة</label><input id="s-name" onchange="updateSettings()"/></div>
     <div class="form-group"><label>عدد الشقق</label><input type="number" id="s-count" min="1" max="200" onchange="updateSettings()"/></div>
     <div class="form-group"><label>الاشتراك الشهري (درهم)</label><input type="number" id="s-fee" min="1" onchange="updateSettings()"/></div>
+    <div class="form-group"><label>🔑 كلمة مرور السنديك</label><input type="password" id="s-syndic-pass" placeholder="تغيير كلمة مرور السنديك"/></div>
+    <div class="form-group"><label>🏠 كلمة مرور السكان</label><input type="password" id="s-res-pass" placeholder="تغيير كلمة مرور السكان"/></div>
+    <button class="btn btn-primary btn-sm" onclick="savePasswords()" style="margin-bottom:12px;">💾 حفظ كلمات المرور</button>
+    <div class="form-group"><label>تخصيص أرقام الشقق</label><div id="apt-nums-grid" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;"></div></div>
   </div>
 </div>
 
 <!-- RESIDENT: My Apartment Page -->
 <div class="page" id="pg-resident">
+  <div id="welcome-message"></div>
   <div class="my-apt-card" id="my-apt-card">
     <div class="my-apt-num" id="my-apt-num">—</div>
     <div class="my-apt-label">شقتي</div>
     <div class="my-apt-status" id="my-apt-status"></div>
   </div>
   <div class="card">
-    <div class="card-title"><div class="card-icon">📅</div>سجل الأداء</div>
+    <div class="card-title"><div class="card-icon">📅</div>سجل الأداء (12 شهرًا)</div>
     <div id="res-history"></div>
+  </div>
+  <div class="card">
+    <div class="card-title"><div class="card-icon">📢</div>إشعارات الشقة</div>
+    <div id="res-notifs"></div>
   </div>
 </div>
 
@@ -570,42 +753,61 @@ textarea{resize:vertical;min-height:72px;width:100%;}
     <div class="card-title"><div class="card-icon">📊</div>إحصائيات هذا الشهر</div>
     <div class="stats-grid" id="res-stats"></div>
   </div>
+  <div class="card">
+    <div class="card-title"><div class="card-icon">💸</div>مصاريف هذا الشهر</div>
+    <div id="res-expenses"></div>
+  </div>
+</div>
+
+<!-- RESIDENT: Contact Syndic -->
+<div class="page" id="pg-res-contact">
+  <div class="card">
+    <div class="card-title"><div class="card-icon">📞</div>التواصل مع السنديك</div>
+    <div id="res-contact-content"></div>
+  </div>
 </div>
 
 </div><!-- end app-shell -->
 
 <!-- ===== BOTTOM NAV ===== -->
 <nav class="bottom-nav" id="main-nav" style="display:none">
+  <!-- Syndic nav -->
   <div id="syndic-nav" style="display:contents">
     <button class="bnav-btn active" onclick="switchPage('dashboard',this)">
-      <div class="bnav-icon-wrap">📊</div>
+      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg></div>
       الرئيسية
     </button>
     <button class="bnav-btn" onclick="switchPage('payments',this)">
-      <div class="bnav-icon-wrap">📋</div>
+      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
       المستحقات
     </button>
     <button class="bnav-btn" onclick="switchPage('expenses',this)">
-      <div class="bnav-icon-wrap">💸</div>
+      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
       المصاريف
     </button>
     <button class="bnav-btn" onclick="switchPage('contacts',this)">
-      <div class="bnav-icon-wrap">👥</div>
+      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
       السكان
     </button>
     <button class="bnav-btn" onclick="switchPage('more',this)">
-      <div class="bnav-icon-wrap">⋯</div>
+      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></div>
       المزيد
+      <span class="bnav-badge" id="nav-badge"></span>
     </button>
   </div>
+  <!-- Resident nav -->
   <div id="resident-nav" style="display:none;contents">
     <button class="bnav-btn active" onclick="switchPage('resident',this)">
-      <div class="bnav-icon-wrap">🏠</div>
+      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></div>
       شقتي
     </button>
     <button class="bnav-btn" onclick="switchPage('res-building',this)">
-      <div class="bnav-icon-wrap">🏢</div>
+      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg></div>
       العمارة
+    </button>
+    <button class="bnav-btn" onclick="switchPage('res-contact',this)">
+      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.37 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+      تواصل
     </button>
   </div>
 </nav>
@@ -616,10 +818,17 @@ textarea{resize:vertical;min-height:72px;width:100%;}
     <div class="modal-handle"></div>
     <h3>💸 إضافة مصروف</h3>
     <div class="form-group"><label>النوع</label>
-      <select id="exp-type"><option>فاتورة الكهرباء</option><option>التنظيف</option><option>صيانة</option><option>أخرى</option></select>
+      <select id="exp-type"><option>فاتورة الكهرباء</option><option>التنظيف</option><option>مواد التنظيف</option><option>صيانة</option><option>أخرى</option></select>
     </div>
     <div class="form-group"><label>الوصف</label><input type="text" id="exp-desc" placeholder="تفاصيل..."/></div>
     <div class="form-group"><label>المبلغ (درهم)</label><input type="number" id="exp-amount" placeholder="0" min="0"/></div>
+    <div class="form-group"><label>الشهر / السنة</label>
+      <div style="display:flex;gap:8px;">
+        <select id="exp-month-m" style="flex:2"></select>
+        <select id="exp-year-y" style="flex:1"></select>
+      </div>
+    </div>
+    <div class="form-group"><label>التاريخ</label><input type="date" id="exp-date"/></div>
     <div class="modal-footer">
       <button class="btn" onclick="closeModal('exp-modal')">إلغاء</button>
       <button class="btn btn-primary" onclick="saveExpense()">💾 حفظ</button>
@@ -634,6 +843,7 @@ textarea{resize:vertical;min-height:72px;width:100%;}
     <div class="form-group"><label>الشقة</label><select id="c-apt" style="width:100%;"></select></div>
     <div class="form-group"><label>الاسم الكامل</label><input type="text" id="c-name" placeholder="اسم الساكن"/></div>
     <div class="form-group"><label>رقم الهاتف</label><input type="tel" id="c-phone" placeholder="+212..."/></div>
+    <div class="form-group"><label>ملاحظات</label><input type="text" id="c-notes" placeholder="اختياري..."/></div>
     <div class="modal-footer">
       <button class="btn" onclick="closeModal('contact-modal')">إلغاء</button>
       <button class="btn btn-primary" onclick="saveContact()">💾 حفظ</button>
@@ -641,501 +851,714 @@ textarea{resize:vertical;min-height:72px;width:100%;}
   </div>
 </div>
 
-<script>
-// ===== CONSTANTS =====
-const MONTHS = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
-const now = new Date();
+<div class="modal-bg" id="reminder-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h3>⏰ إضافة تذكير</h3>
+    <div class="form-group"><label>العنوان</label><input type="text" id="rem-title" placeholder="مثال: تحصيل الاشتراكات"/></div>
+    <div class="form-group"><label>النوع</label>
+      <select id="rem-type"><option value="monthly">شهري</option><option value="weekly">أسبوعي</option><option value="once">مرة واحدة</option></select>
+    </div>
+    <div class="form-group"><label>اليوم (للتذكير الشهري)</label><input type="number" id="rem-day" value="1" min="1" max="28"/></div>
+    <div class="form-group"><label>رسالة واتساب</label><textarea id="rem-msg" placeholder="نص الرسالة..."></textarea></div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('reminder-modal')">إلغاء</button>
+      <button class="btn btn-primary" onclick="saveReminder()">💾 حفظ</button>
+    </div>
+  </div>
+</div>
 
-let S = {
-  aptCount: 21,
-  fee: 50,
-  buildingName: 'عمارة السنديك — رقم 62',
-  aptNumbers: Array.from({length:21}, (_,i) => (i+1).toString()),
-  payments: {},
-  expenses: [],
-  contacts: {},
-  syndicPass: 'admin123',
-  residentPass: '1234'
+<div class="modal-bg" id="notif-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h3>🔔 الإشعارات</h3>
+    <div id="notif-modal-list"></div>
+    <button class="btn btn-block" style="margin-top:12px;" onclick="closeModal('notif-modal')">إغلاق</button>
+  </div>
+</div>
+
+<script>
+// ===== إعدادات GitHub (⚠️ قم بتعديل هذه القيم) =====
+const GITHUB_OWNER = 'Mohammed625625'; // اسم المستخدم الخاص بك
+const GITHUB_REPO = 'syndic62-data'; // اسم مستودع البيانات
+const GITHUB_TOKEN = 'ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'; // ضع الـ Token هنا
+
+const DATA_FILE = 'data.json';
+
+// ===== CONSTANTS =====
+const MONTHS=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+const now=new Date();
+
+const DEFAULT_REMINDERS=[
+  {id:'s1',title:'تحصيل الاشتراكات',sub:'أول كل شهر',icon:'💰',type:'monthly',day:1,active:true,msg:'السلام عليكم، تذكير بأداء اشتراك الشهر: 50 درهم. شكراً'},
+  {id:'s2',title:'فاتورة الكهرباء',sub:'منتصف الشهر',icon:'⚡',type:'monthly',day:15,active:true,msg:'تذكير بأداء فاتورة الكهرباء'},
+  {id:'s3',title:'متابعة المتأخرين',sub:'نهاية الشهر',icon:'⚠️',type:'monthly',day:25,active:true,msg:'تذكير أخير بأداء مستحقات الشهر'},
+  {id:'s4',title:'جولة النظافة',sub:'أسبوعي',icon:'🧹',type:'weekly',day:1,active:false,msg:'تذكير بجولة النظافة الأسبوعية'},
+];
+
+let S={
+  aptCount:21,fee:50,
+  buildingName:'عمارة السنديك — رقم 62',
+  aptNumbers:Array.from({length:21},(_,i)=>(i+1).toString()),
+  payments:{},expenses:[],contacts:{},ideas:[],
+  notifications:[],reminders:[...DEFAULT_REMINDERS],
+  syndicUser:'syndic62',syndicPass:'admin123',residentPass:'1234'
 };
 
-let currentUser = null;
+let currentUser=null;
 
-// ===== STORAGE =====
-function load() {
+// ===== دوال التخزين المحلي =====
+function load(){try{const s=localStorage.getItem('syndic62pwa2');if(s){const d=JSON.parse(s);S={...S,...d};}}catch(e){}}
+function save(){try{localStorage.setItem('syndic62pwa2',JSON.stringify(S));}catch(e){}}
+
+// ===== دوال التفاعل مع GitHub =====
+async function loadFromGitHub() {
   try {
-    const s = localStorage.getItem('syndic62');
-    if (s) {
-      const d = JSON.parse(s);
-      S = { ...S, ...d };
+    const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${DATA_FILE}`;
+    const response = await fetch(url, {
+      headers: {
+        'Authorization': `token ${GITHUB_TOKEN}`,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+    
+    if (!response.ok) {
+      return null;
     }
-  } catch (e) {
-    console.error('خطأ في التحميل:', e);
+    
+    const data = await response.json();
+    const content = atob(data.content);
+    return JSON.parse(content);
+  } catch (error) {
+    console.error('خطأ في تحميل البيانات:', error);
+    return null;
   }
 }
 
-function save() {
+async function saveToGitHub(data) {
   try {
-    localStorage.setItem('syndic62', JSON.stringify(S));
-  } catch (e) {
-    console.error('خطأ في الحفظ:', e);
+    let sha = '';
+    const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${DATA_FILE}`;
+    const checkResponse = await fetch(url, {
+      headers: {
+        'Authorization': `token ${GITHUB_TOKEN}`,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+    
+    if (checkResponse.ok) {
+      const existing = await checkResponse.json();
+      sha = existing.sha;
+    }
+    
+    const content = btoa(JSON.stringify(data, null, 2));
+    const response = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${GITHUB_TOKEN}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: 'تحديث بيانات العمارة',
+        content: content,
+        sha: sha || undefined
+      })
+    });
+    
+    return response.ok;
+  } catch (error) {
+    console.error('خطأ في حفظ البيانات:', error);
+    return false;
   }
 }
 
-// ===== AUTH =====
-function selectRole(role, btn) {
-  document.querySelectorAll('.role-tab').forEach(b => b.classList.remove('active'));
+async function syncWithGitHub() {
+  if (!navigator.onLine) {
+    alert('🔴 لا يوجد اتصال بالإنترنت');
+    return;
+  }
+  
+  const btn = event?.currentTarget;
+  if (btn) {
+    btn.textContent = '⏳ جاري المزامنة...';
+    btn.disabled = true;
+  }
+  
+  try {
+    const cloudData = await loadFromGitHub();
+    if (cloudData) {
+      const merged = { ...S, ...cloudData };
+      S = { ...merged };
+      save();
+      
+      if (currentUser.role === 'syndic') {
+        renderDashboard();
+        renderPayments();
+        renderExpenses();
+        renderContacts();
+        renderMore();
+      } else {
+        renderResidentView();
+        renderResBuildingInfo();
+      }
+      
+      alert('✅ تمت المزامنة بنجاح مع GitHub');
+    } else {
+      await saveToGitHub(S);
+      alert('✅ تم رفع البيانات إلى GitHub لأول مرة');
+    }
+  } catch (error) {
+    alert('❌ حدث خطأ أثناء المزامنة: ' + error.message);
+  } finally {
+    if (btn) {
+      btn.textContent = '🔄 مزامنة';
+      btn.disabled = false;
+    }
+  }
+}
+
+// تعديل دالة save لتزامن مع GitHub تلقائيًا
+const originalSave = save;
+save = function() {
+  try {
+    localStorage.setItem('syndic62pwa2', JSON.stringify(S));
+    if (currentUser && currentUser.role === 'syndic' && navigator.onLine) {
+      setTimeout(() => saveToGitHub(S), 1000);
+    }
+  } catch(e) {}
+};
+
+// ===== دوال أخرى (كما في الكود الأصلي) =====
+function pk(a,m,y){return`${a}_${m}_${y}`;}
+function paid(a,m,y){return!!S.payments[pk(a,m,y)];}
+function togglePay(a,m,y){S.payments[pk(a,m,y)]=!S.payments[pk(a,m,y)];save();renderPayments();renderDashboard();checkNotifs();}
+
+// ===== RIPPLE EFFECT =====
+document.addEventListener('click',function(e){
+  const btn=e.target.closest('.btn,.btn-login,.bnav-btn');
+  if(!btn)return;
+  const rect=btn.getBoundingClientRect();
+  const r=document.createElement('span');
+  r.className='ripple';
+  const size=Math.max(rect.width,rect.height);
+  r.style.cssText=`width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`;
+  btn.style.position='relative';btn.style.overflow='hidden';
+  btn.appendChild(r);
+  setTimeout(()=>r.remove(),600);
+});
+
+// ===== LOGIN =====
+let selectedRole='syndic';
+function selectRole(role,btn){
+  selectedRole=role;
+  document.querySelectorAll('.role-tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
-  
-  if (role === 'syndic') {
-    document.getElementById('syndic-fields').style.display = 'block';
-    document.getElementById('resident-fields').style.display = 'none';
+  document.getElementById('syndic-fields').style.display=role==='syndic'?'':'none';
+  document.getElementById('resident-fields').style.display=role==='resident'?'':'none';
+  document.getElementById('login-error').style.display='none';
+}
+
+function doLogin(){
+  const err=document.getElementById('login-error');
+  err.style.display='none';
+  if(selectedRole==='syndic'){
+    const u=document.getElementById('login-user').value.trim();
+    const p=document.getElementById('login-pass').value;
+    if(u===S.syndicUser&&p===S.syndicPass){
+      currentUser={role:'syndic'};
+      enterApp();
+    } else {err.style.display='block';}
   } else {
-    document.getElementById('syndic-fields').style.display = 'none';
-    document.getElementById('resident-fields').style.display = 'block';
+    const apt=document.getElementById('res-apt').value.trim();
+    const p=document.getElementById('res-pass').value;
+    if(S.aptNumbers.includes(apt)&&p===S.residentPass){
+      const c=S.contacts[apt];
+      currentUser={role:'resident',apt,name:c?c.name:('شقة '+apt)};
+      enterApp();
+    } else {err.style.display='block';}
   }
 }
 
-function doLogin() {
-  const activeTab = document.querySelector('.role-tab.active');
-  const role = activeTab.textContent.includes('السنديك') ? 'syndic' : 'resident';
-  
-  let valid = false;
-  if (role === 'syndic') {
-    const user = document.getElementById('login-user').value;
-    const pass = document.getElementById('login-pass').value;
-    valid = user === 'syndic62' && pass === S.syndicPass;
-  } else {
-    const apt = document.getElementById('res-apt').value;
-    const pass = document.getElementById('res-pass').value;
-    valid = S.aptNumbers.includes(apt) && pass === S.residentPass;
-  }
-  
-  if (valid) {
-    currentUser = { role, apt: role === 'resident' ? document.getElementById('res-apt').value : null };
-    showApp();
-  } else {
-    document.getElementById('login-error').style.display = 'block';
-    setTimeout(() => document.getElementById('login-error').style.display = 'none', 3000);
-  }
+function enterApp(){
+  sessionStorage.setItem('syndic62session',JSON.stringify(currentUser));
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('app-shell').style.display='';
+  document.getElementById('main-nav').style.display='flex';
+  setupForRole();
+  initApp();
 }
 
-function doLogout() {
-  currentUser = null;
-  document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('app-shell').style.display = 'none';
-  document.getElementById('main-nav').style.display = 'none';
-  document.getElementById('login-user').value = '';
-  document.getElementById('login-pass').value = '';
-  document.getElementById('res-apt').value = '';
-  document.getElementById('res-pass').value = '';
+function doLogout(){
+  sessionStorage.removeItem('syndic62session');
+  currentUser=null;
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('app-shell').style.display='none';
+  document.getElementById('main-nav').style.display='none';
+  document.getElementById('login-user').value='';
+  document.getElementById('login-pass').value='';
+  document.getElementById('res-apt').value='';
+  document.getElementById('res-pass').value='';
 }
 
-function showApp() {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('app-shell').style.display = 'block';
-  document.getElementById('main-nav').style.display = 'flex';
-  
-  if (currentUser.role === 'syndic') {
-    document.getElementById('syndic-nav').style.display = 'contents';
-    document.getElementById('resident-nav').style.display = 'none';
+function setupForRole(){
+  const isSyndic=currentUser.role==='syndic';
+  document.getElementById('syndic-nav').style.display=isSyndic?'contents':'none';
+  document.getElementById('resident-nav').style.display=isSyndic?'none':'contents';
+  document.getElementById('hdr-user-badge').textContent=isSyndic?'🔑 السنديك':'🏠 ش '+currentUser.apt;
+  const navBtns=document.querySelectorAll(isSyndic?'#syndic-nav .bnav-btn':'#resident-nav .bnav-btn');
+  navBtns.forEach(b=>b.classList.remove('active'));
+  if(navBtns.length)navBtns[0].classList.add('active');
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(isSyndic?'pg-dashboard':'pg-resident').classList.add('active');
+  document.getElementById('notif-bell-btn').style.display=isSyndic?'':'none';
+}
+
+function initApp(){
+  document.getElementById('hdr-date').textContent=now.toLocaleDateString('ar-MA',{month:'long',day:'numeric'});
+  populateSelects();
+  if(currentUser.role==='syndic'){
+    renderDashboard();checkNotifs();renderInstallBanner();
   } else {
-    document.getElementById('syndic-nav').style.display = 'none';
-    document.getElementById('resident-nav').style.display = 'contents';
+    renderResidentView();
+    renderResBuildingInfo();
+    renderResContactPage();
   }
-  
-  updateHeader();
-  renderDashboard();
-}
-
-function updateHeader() {
-  const dateStr = now.toLocaleDateString('ar-MA', { weekday: 'short', month: 'short', day: 'numeric' });
-  document.getElementById('hdr-date').textContent = dateStr;
-  document.getElementById('hdr-sub').textContent = S.aptCount + ' شقة';
-  
-  if (currentUser.role === 'resident') {
-    document.getElementById('hdr-title').textContent = '🏠 شقة رقم ' + currentUser.apt;
-    document.getElementById('hdr-user-badge').textContent = '👤 ساكن';
-  } else {
-    document.getElementById('hdr-title').textContent = '🏢 ' + S.buildingName;
-    document.getElementById('hdr-user-badge').textContent = '🔑 السنديك';
+  // عند بدء التطبيق، حاول المزامنة مع GitHub
+  if(navigator.onLine) {
+    setTimeout(syncWithGitHub, 2000);
   }
 }
 
-// ===== PAGES =====
-function switchPage(page, btn) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('pg-' + page).classList.add('active');
-  
-  document.querySelectorAll('.bnav-btn').forEach(b => b.classList.remove('active'));
+// ===== RESIDENT VIEW =====
+function renderResidentView(){
+  const apt=currentUser.apt;
+  showWelcomeMessage(apt);
+  const m=now.getMonth(),y=now.getFullYear();
+  const p=paid(apt,m,y);
+  document.getElementById('my-apt-num').textContent='ش '+apt;
+  document.getElementById('my-apt-status').className='my-apt-status '+(p?'paid':'unpaid');
+  document.getElementById('my-apt-status').innerHTML=p?'✅ أديت مستحقات '+MONTHS[m]:'⏳ لم تؤدِ مستحقات '+MONTHS[m];
+  document.getElementById('res-history').innerHTML=renderResidentHistory(apt);
+  const rNotifs=S.notifications.filter(n=>!n.read||n.type==='info').slice(0,5);
+  document.getElementById('res-notifs').innerHTML=rNotifs.length?
+    rNotifs.map(n=>`<div class="notif-item"><div class="notif-icon ${n.type}">${n.icon}</div><div class="notif-body"><div class="notif-title">${n.title}</div><div class="notif-desc">${n.desc}</div></div></div>`).join('')
+    :'<div style="font-size:13px;color:var(--text2);padding:8px 0">لا توجد إشعارات جديدة</div>';
+}
+
+function showWelcomeMessage(apt){
+  const hour=now.getHours();
+  let greeting='مساء الخير';
+  if(hour<12) greeting='صباح الخير';
+  else if(hour<18) greeting='طاب يومك';
+  const name=S.contacts[apt]?.name||'الساكن';
+  document.getElementById('welcome-message').innerHTML=`
+    <div style="background:linear-gradient(135deg,var(--primary-light),var(--accent-light));border-radius:var(--radius);padding:16px;margin-bottom:16px;border:1px solid rgba(15,122,84,0.2);text-align:center;">
+      <div style="font-size:28px;font-weight:800;color:var(--primary-dark);">${greeting} 👋</div>
+      <div style="font-size:16px;color:var(--text2);margin-top:4px;">أهلاً بك في شقة رقم <strong style="color:var(--primary)">${apt}</strong>، ${name}</div>
+      <div style="font-size:13px;color:var(--text2);margin-top:6px;">📅 ${now.toLocaleDateString('ar-MA',{weekday:'long',month:'long',day:'numeric'})}</div>
+    </div>
+  `;
+}
+
+function renderResidentHistory(apt){
+  const m=now.getMonth(),y=now.getFullYear();
+  let html='<div class="tbl-wrap"><table><thead><tr><th>الشهر</th><th>المبلغ</th><th>الحالة</th></tr></thead><tbody>';
+  for(let i=0;i<12;i++){
+    let mm=m-i;let yy=y;while(mm<0){mm+=12;yy--;}
+    const p2=paid(apt,mm,yy);
+    html+=`<tr><td>${MONTHS[mm]} ${yy}</td><td>${S.fee} د</td><td><span class="badge ${p2?'badge-paid':'badge-unpaid'}">${p2?'✓ أديت':'✗ لم تؤدِ'}</span></td></tr>`;
+  }
+  html+='</tbody></table></div>';
+  return html;
+}
+
+function renderResBuildingInfo(){
+  const m=now.getMonth(),y=now.getFullYear();
+  let p=0; S.aptNumbers.forEach(a=>{if(paid(a,m,y))p++;});
+  const total=S.aptCount,pct=total?Math.round(p/total*100):0;
+  document.getElementById('res-building-info').innerHTML=`
+    <div style="font-size:13px;line-height:2.2;color:var(--text2)">
+      <div>اسم العمارة: <strong style="color:var(--text)">${S.buildingName}</strong></div>
+      <div>عدد الشقق: <strong style="color:var(--text)">${S.aptCount}</strong></div>
+      <div>الاشتراك الشهري: <strong style="color:var(--primary)">${S.fee} درهم</strong></div>
+      <div>الشهر الحالي: <strong style="color:var(--text)">${MONTHS[m]} ${y}</strong></div>
+    </div>`;
+  document.getElementById('res-stats').innerHTML=`
+    <div class="stat-card"><div class="stat-val green">${p}<span style="font-size:14px;color:var(--text2)">/${total}</span></div><div class="stat-lbl">أدّوا هذا الشهر</div><div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div></div>
+    <div class="stat-card"><div class="stat-val amber">${total-p}</div><div class="stat-lbl">لم يؤدوا بعد</div></div>`;
+  document.getElementById('res-expenses').innerHTML=renderResidentExpenses(m,y);
+}
+
+function renderResidentExpenses(m,y){
+  const exps=S.expenses.filter(e=>e.month===m&&e.year===y);
+  if(exps.length===0) return '<div style="color:var(--text2);font-size:13px;padding:8px 0">لا توجد مصاريف مسجلة هذا الشهر</div>';
+  return exps.map(e=>`
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;">
+      <span><strong>${e.type}</strong> ${e.desc?'— '+e.desc:''}</span>
+      <span style="font-weight:700;color:var(--danger);">${e.amount} د</span>
+    </div>
+  `).join('');
+}
+
+function renderResContactPage(){
+  document.getElementById('res-contact-content').innerHTML=`
+    <div style="font-size:13px;line-height:2;color:var(--text2)">
+      <p style="margin-bottom:12px;color:var(--text)">للتواصل مع سنديك العمارة أو الإبلاغ عن مشكل:</p>
+    </div>
+    <button class="btn btn-wa btn-block" onclick="window.open('https://wa.me/?text='+encodeURIComponent('السلام عليكم، ساكن الشقة ${currentUser.apt}. أودّ التواصل معكم.'),'_blank')">
+      📱 إرسال رسالة واتساب
+    </button>
+    <div style="margin-top:12px;font-size:12px;color:var(--text2);text-align:center">رقم العمارة: 62</div>`;
+}
+
+// ===== INSTALL BANNER =====
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;if(currentUser&&currentUser.role==='syndic')renderInstallBanner();});
+function renderInstallBanner(){
+  const w=document.getElementById('install-banner-wrap');
+  if(!deferredPrompt){w.innerHTML='';return;}
+  w.innerHTML=`<div class="install-banner">
+    <div style="font-size:32px">📲</div>
+    <div class="install-banner-text"><strong>تثبيت التطبيق</strong>أضفه إلى شاشتك الرئيسية للوصول السريع</div>
+    <button class="btn" style="background:#fff;color:var(--primary);font-weight:700;white-space:nowrap;" onclick="installApp()">تثبيت</button>
+  </div>`;
+}
+async function installApp(){if(deferredPrompt){deferredPrompt.prompt();const{outcome}=await deferredPrompt.userChoice;if(outcome==='accepted')document.getElementById('install-banner-wrap').innerHTML='';deferredPrompt=null;}}
+
+// ===== NAVIGATION =====
+function switchPage(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.bnav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('pg-'+id).classList.add('active');
   btn.classList.add('active');
-  
-  if (page === 'dashboard') renderDashboard();
-  else if (page === 'payments') renderPayments();
-  else if (page === 'expenses') renderExpenses();
-  else if (page === 'contacts') renderContacts();
-  else if (page === 'resident') renderResidentPage();
-  else if (page === 'res-building') renderResidentBuilding();
+  const fns={
+    payments:renderPayments,expenses:renderExpenses,contacts:renderContacts,more:renderMore,
+    resident:renderResidentView,'res-building':renderResBuildingInfo,'res-contact':renderResContactPage
+  };
+  if(fns[id])fns[id]();
+}
+
+// ===== POPULATE SELECTS =====
+function populateSelects(){
+  const m=now.getMonth(),y=now.getFullYear();
+  ['pay-month','exp-month','exp-month-m'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.innerHTML=MONTHS.map((mn,i)=>`<option value="${i}"${i===m?' selected':''}>${mn}</option>`).join('');
+  });
+  ['pay-year','exp-year','exp-year-y'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.innerHTML=[y-1,y,y+1].map(yr=>`<option value="${yr}"${yr===y?' selected':''}>${yr}</option>`).join('');
+  });
 }
 
 // ===== DASHBOARD =====
-function renderDashboard() {
-  if (currentUser.role !== 'syndic') return;
-  
-  const m = now.getMonth();
-  const y = now.getFullYear();
-  const key = y + '-' + (m+1);
-  
-  const payments = S.payments[key] || {};
-  const paid = Object.values(payments).filter(p => p).length;
-  const total = S.aptCount;
-  const expenses = S.expenses.filter(e => e.month === key);
-  const totalExp = expenses.reduce((s, e) => s + (e.amount || 0), 0);
-  const totalFee = total * S.fee;
-  
-  document.getElementById('dash-stats').innerHTML = `
-    <div class="stat-card">
-      <div class="stat-val green">${paid}/${total}</div>
-      <div class="stat-lbl">المدفوعين</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val blue">${(paid * S.fee).toLocaleString()}</div>
-      <div class="stat-lbl">المجموع المدفوع</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val red">${total - paid}</div>
-      <div class="stat-lbl">المتأخرين</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val amber">${totalExp.toLocaleString()}</div>
-      <div class="stat-lbl">المصاريف</div>
-    </div>
-  `;
-  
-  const percent = Math.round((paid / total) * 100);
-  document.getElementById('dash-summary').innerHTML = `
-    <p style="margin-bottom:10px;font-size:12px;color:var(--text2);">معدل الأداء: ${percent}%</p>
-    <div class="progress-bar"><div class="progress-fill" style="width:${percent}%"></div></div>
-  `;
-  
-  const unpaid = Object.entries(payments)
-    .filter(([_, p]) => !p)
-    .map(([apt, _]) => parseInt(apt));
-  
-  if (unpaid.length > 0) {
-    document.getElementById('dash-unpaid').innerHTML = unpaid.map(apt => {
-      const contact = S.contacts[apt] || { name: 'غير معروف' };
-      return `<div style="padding:8px;background:var(--danger-light);color:var(--danger);border-radius:8px;margin-bottom:6px;font-size:12px;">
-        الشقة ${apt}: ${contact.name}
-      </div>`;
-    }).join('');
-  } else {
-    document.getElementById('dash-unpaid').innerHTML = '<p style="color:var(--success);font-size:12px;">✅ جميع السكان مسددوا الالتزامات</p>';
-  }
+function renderDashboard(){
+  const m=now.getMonth(),y=now.getFullYear();
+  let p=0; S.aptNumbers.forEach(a=>{if(paid(a,m,y))p++;});
+  const total=S.aptCount,up=total-p,inc=p*S.fee;
+  const exp=S.expenses.filter(e=>e.month===m&&e.year===y).reduce((a,b)=>a+b.amount,0);
+  const bal=inc-exp,pct=total?Math.round(p/total*100):0;
+  document.getElementById('hdr-sub').textContent=`${total} شقة — ${MONTHS[m]} ${y}`;
+  document.getElementById('dash-stats').innerHTML=`
+    <div class="stat-card"><div class="stat-val green">${p}<span style="font-size:14px;color:var(--text2)">/${total}</span></div><div class="stat-lbl">أدّوا الاشتراك</div><div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div></div>
+    <div class="stat-card"><div class="stat-val blue">${inc.toLocaleString()}</div><div class="stat-lbl">المداخيل (درهم)</div></div>
+    <div class="stat-card"><div class="stat-val amber">${exp.toLocaleString()}</div><div class="stat-lbl">المصاريف (درهم)</div></div>
+    <div class="stat-card"><div class="stat-val ${bal>=0?'green':'red'}">${bal.toLocaleString()}</div><div class="stat-lbl">الرصيد (درهم)</div></div>`;
+  document.getElementById('dash-summary').innerHTML=`<div style="font-size:13px;color:var(--text2);line-height:2.2;font-weight:500;">
+    نسبة الأداء: <strong style="color:var(--text);font-size:15px">${pct}%</strong><br>
+    غير مؤدية: <strong style="color:var(--danger)">${up} شقة</strong> — مبلغ متبقي: <strong style="color:var(--danger)">${(up*S.fee).toLocaleString()} درهم</strong></div>`;
+  const unp=S.aptNumbers.filter(a=>!paid(a,m,y));
+  document.getElementById('dash-unpaid').innerHTML=unp.length===0
+    ?'<div style="color:var(--success);font-size:13px;padding:8px 0;font-weight:700">✅ جميع السكان أدّوا مستحقاتهم</div>'
+    :`<div style="display:flex;flex-wrap:wrap;">${unp.map(a=>{const c=S.contacts[a];const msg=encodeURIComponent('السلام عليكم، تذكير بأداء اشتراك '+MONTHS[m]+': '+S.fee+' درهم. شكراً');
+      return`<div class="unpaid-chip"><strong>ش ${a}</strong>${c?` — ${c.name}`:''}${c&&c.phone?` <a href="https://wa.me/${c.phone.replace(/\D/g,'')}?text=${msg}" target="_blank" style="color:#25D366;text-decoration:none">📱</a>`:''}</div>`;}).join('')}</div>`;
 }
 
 // ===== PAYMENTS =====
-function renderPayments() {
-  if (currentUser.role !== 'syndic') return;
-  
-  const m = now.getMonth();
-  const y = now.getFullYear();
-  
-  const payMonthEl = document.getElementById('pay-month');
-  const payYearEl = document.getElementById('pay-year');
-  
-  if (payMonthEl.children.length === 0) {
-    MONTHS.forEach((month, i) => {
-      const opt = document.createElement('option');
-      opt.value = i + 1;
-      opt.textContent = month;
-      if (i === m) opt.selected = true;
-      payMonthEl.appendChild(opt);
-    });
-    
-    for (let i = y - 2; i <= y + 2; i++) {
-      const opt = document.createElement('option');
-      opt.value = i;
-      opt.textContent = i;
-      if (i === y) opt.selected = true;
-      payYearEl.appendChild(opt);
-    }
-  }
-  
-  const selMonth = parseInt(payMonthEl.value);
-  const selYear = parseInt(payYearEl.value);
-  const key = selYear + '-' + selMonth;
-  const payments = S.payments[key] || {};
-  
-  let html = '<thead><tr><th>الشقة</th><th>الاسم</th><th>الحالة</th></tr></thead><tbody>';
-  
-  S.aptNumbers.forEach(apt => {
-    const isPaid = payments[apt];
-    const contact = S.contacts[apt] || { name: 'بدون بيانات' };
-    const status = isPaid ? '<span class="badge badge-paid">✓ مسدد</span>' : '<span class="badge badge-unpaid">✗ متأخر</span>';
-    html += `<tr><td>${apt}</td><td>${contact.name}</td><td>${status}</td></tr>`;
-  });
-  
-  html += '</tbody>';
-  document.getElementById('pay-table').innerHTML = html;
+function renderPayments(){
+  const m=parseInt(document.getElementById('pay-month').value);
+  const y=parseInt(document.getElementById('pay-year').value);
+  let p=0,up=0; S.aptNumbers.forEach(a=>{paid(a,m,y)?p++:up++;});
+  document.getElementById('pay-summary-lbl').textContent=`✅ ${p} | ❌ ${up}`;
+  document.getElementById('pay-table').innerHTML=`<thead><tr>
+    <th>الشقة</th><th>الساكن</th><th>المبلغ</th><th>الحالة</th><th>✓</th></tr></thead>
+    <tbody>${S.aptNumbers.map(a=>{const c=S.contacts[a],p2=paid(a,m,y);
+      return`<tr><td><strong>${a}</strong></td><td style="font-size:12px">${c?c.name:'—'}</td>
+        <td style="font-size:12px;font-weight:600">${S.fee}د</td>
+        <td><span class="badge ${p2?'badge-paid':'badge-unpaid'}">${p2?'أدّى':'لم'}</span></td>
+        <td><div class="chk ${p2?'on':''}" onclick="togglePay('${a}',${m},${y})"></div></td></tr>`;}).join('')}</tbody>`;
 }
 
 // ===== EXPENSES =====
-function renderExpenses() {
-  if (currentUser.role !== 'syndic') return;
-  
-  const m = now.getMonth();
-  const y = now.getFullYear();
-  
-  const expMonthEl = document.getElementById('exp-month');
-  const expYearEl = document.getElementById('exp-year');
-  
-  if (expMonthEl.children.length === 0) {
-    MONTHS.forEach((month, i) => {
-      const opt = document.createElement('option');
-      opt.value = i + 1;
-      opt.textContent = month;
-      if (i === m) opt.selected = true;
-      expMonthEl.appendChild(opt);
-    });
-    
-    for (let i = y - 2; i <= y + 2; i++) {
-      const opt = document.createElement('option');
-      opt.value = i;
-      opt.textContent = i;
-      if (i === y) opt.selected = true;
-      expYearEl.appendChild(opt);
-    }
-  }
-  
-  const selMonth = parseInt(expMonthEl.value);
-  const selYear = parseInt(expYearEl.value);
-  const key = selYear + '-' + selMonth;
-  
-  const expenses = S.expenses.filter(e => e.month === key);
-  const total = expenses.reduce((s, e) => s + (e.amount || 0), 0);
-  
-  document.getElementById('exp-stats').innerHTML = `
-    <div class="stat-card">
-      <div class="stat-val blue">${expenses.length}</div>
-      <div class="stat-lbl">عدد المصاريف</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val amber">${total.toLocaleString()}</div>
-      <div class="stat-lbl">الإجمالي</div>
-    </div>
-  `;
-  
-  let html = '<thead><tr><th>النوع</th><th>الوصف</th><th>المبلغ</th></tr></thead><tbody>';
-  expenses.forEach(e => {
-    html += `<tr><td>${e.type}</td><td>${e.desc}</td><td>${e.amount}</td></tr>`;
-  });
-  html += '</tbody>';
-  document.getElementById('exp-table').innerHTML = html;
-}
-
-function openExpModal() {
-  document.getElementById('exp-modal').classList.add('open');
-}
-
-function saveExpense() {
-  const type = document.getElementById('exp-type').value;
-  const desc = document.getElementById('exp-desc').value;
-  const amount = parseInt(document.getElementById('exp-amount').value) || 0;
-  
-  const m = now.getMonth() + 1;
-  const y = now.getFullYear();
-  const month = y + '-' + m;
-  
-  S.expenses.push({ type, desc, amount, month, date: new Date().toISOString() });
-  save();
-  closeModal('exp-modal');
-  document.getElementById('exp-amount').value = '';
-  document.getElementById('exp-desc').value = '';
-  renderExpenses();
-}
-
-function closeModal(id) {
-  document.getElementById(id).classList.remove('open');
+function renderExpenses(){
+  const m=parseInt(document.getElementById('exp-month').value);
+  const y=parseInt(document.getElementById('exp-year').value);
+  const exps=S.expenses.filter(e=>e.month===m&&e.year===y);
+  const inc=S.aptNumbers.filter(a=>paid(a,m,y)).length*S.fee;
+  const tot=exps.reduce((a,b)=>a+b.amount,0);
+  document.getElementById('exp-stats').innerHTML=`
+    <div class="stat-card"><div class="stat-val amber">${tot.toLocaleString()}</div><div class="stat-lbl">المصاريف (د)</div></div>
+    <div class="stat-card"><div class="stat-val green">${inc.toLocaleString()}</div><div class="stat-lbl">المداخيل (د)</div></div>
+    <div class="stat-card"><div class="stat-val ${inc-tot>=0?'green':'red'}">${(inc-tot).toLocaleString()}</div><div class="stat-lbl">الرصيد (د)</div></div>
+    <div class="stat-card"><div class="stat-val">${exps.length}</div><div class="stat-lbl">عدد المصاريف</div></div>`;
+  document.getElementById('exp-table').innerHTML=`<thead><tr>
+    <th>النوع</th><th>الوصف</th><th>المبلغ</th><th>حذف</th></tr></thead>
+    <tbody>${exps.length===0?`<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--text2)">لا توجد مصاريف</td></tr>`
+    :exps.map(e=>`<tr><td><span class="badge" style="background:var(--primary-light);color:var(--primary-dark);font-size:10px">${e.type}</span></td>
+      <td style="font-size:12px">${e.desc||'—'}</td><td style="font-size:12px;font-weight:700">${e.amount}د</td>
+      <td><button onclick="delExp(${S.expenses.indexOf(e)})" style="background:none;border:none;cursor:pointer;color:var(--danger);font-size:16px">🗑</button></td></tr>`).join('')
+    }</tbody>`;
 }
 
 // ===== CONTACTS =====
-function renderContacts() {
-  if (currentUser.role !== 'syndic') return;
-  
-  const search = document.getElementById('contact-search').value.toLowerCase();
-  const apts = S.aptNumbers.filter(apt => {
-    const contact = S.contacts[apt] || {};
-    return apt.includes(search) || (contact.name || '').toLowerCase().includes(search);
-  });
-  
-  const aptSelectEl = document.getElementById('c-apt');
-  if (aptSelectEl.children.length === 0) {
-    S.aptNumbers.forEach(apt => {
-      const opt = document.createElement('option');
-      opt.value = apt;
-      opt.textContent = 'الشقة ' + apt;
-      aptSelectEl.appendChild(opt);
-    });
-  }
-  
-  let html = '';
-  apts.forEach(apt => {
-    const contact = S.contacts[apt] || { name: '', phone: '' };
-    html += `
-      <div class="contact-card">
-        <div class="avatar">${apt}</div>
-        <div class="contact-info">
-          <div class="contact-name">${contact.name || 'بدون اسم'}</div>
-          <div class="contact-apt">الشقة ${apt}</div>
-          <div class="contact-phone">${contact.phone || 'بدون رقم'}</div>
-        </div>
+function renderContacts(){
+  const q=document.getElementById('contact-search').value.toLowerCase();
+  const filtered=S.aptNumbers.filter(a=>{const c=S.contacts[a];if(!q)return true;return a.includes(q)||(c&&c.name.toLowerCase().includes(q));});
+  document.getElementById('contacts-list').innerHTML=filtered.map(a=>{
+    const c=S.contacts[a],ini=c&&c.name?c.name.split(' ').map(w=>w[0]).join('').slice(0,2):a;
+    return`<div class="contact-card">
+      <div class="avatar">${ini}</div>
+      <div class="contact-info">
+        <div class="contact-name">${c?c.name:'شاغر'}</div>
+        <div class="contact-apt">🏠 شقة رقم ${a}</div>
+        ${c&&c.phone?`<div class="contact-phone">📞 ${c.phone}</div>`:''}
       </div>
-    `;
+      <div style="display:flex;flex-direction:column;gap:5px;align-items:flex-start;">
+        ${c&&c.phone?`<a href="https://wa.me/${c.phone.replace(/\D/g,'')}" target="_blank" class="btn btn-wa btn-sm">📱 WA</a>`:''}
+        <button class="btn btn-sm" onclick="openContactModal('${a}')">✏️ تعديل</button>
+      </div>
+    </div>`;}).join('');
+}
+
+// ===== MORE =====
+function renderMore(){renderNotifSection();renderWABulk();renderReminders();renderIdeas();renderSettings();}
+
+// ===== NOTIFICATIONS =====
+function checkNotifs(){
+  const m=now.getMonth(),y=now.getFullYear();
+  let p=0; S.aptNumbers.forEach(a=>{if(paid(a,m,y))p++;});
+  const up=S.aptCount-p,inc=p*S.fee,pct=S.aptCount?Math.round(p/S.aptCount*100):0;
+  const exp=S.expenses.filter(e=>e.month===m&&e.year===y).reduce((a,b)=>a+b.amount,0);
+  const bal=inc-exp,newN=[];
+  if(up>0)newN.push({id:'nu',type:'warn',icon:'⚠️',title:`${up} شقة لم تؤدِ`,desc:`نسبة الأداء ${pct}% — متبقي: ${(up*S.fee).toLocaleString()} درهم`,time:now.toLocaleTimeString('ar-MA',{hour:'2-digit',minute:'2-digit'}),read:false});
+  if(bal<0)newN.push({id:'nb',type:'danger',icon:'🔴',title:'عجز في الميزانية',desc:`الرصيد: ${bal.toLocaleString()} درهم`,time:now.toLocaleTimeString('ar-MA',{hour:'2-digit',minute:'2-digit'}),read:false});
+  if(pct===100)newN.push({id:'nf',type:'success',icon:'✅',title:'جميع الشقق أدّت المستحقات',desc:`إجمالي: ${inc.toLocaleString()} درهم`,time:now.toLocaleTimeString('ar-MA',{hour:'2-digit',minute:'2-digit'}),read:false});
+  const d=now.getDate();
+  S.reminders.filter(r=>r.active).forEach(r=>{
+    if((r.type==='monthly'&&r.day===d)||(r.type==='weekly'&&now.getDay()===1))
+      newN.push({id:'nr_'+r.id,type:'info',icon:'🔔',title:'تذكير: '+r.title,desc:r.sub||'',time:now.toLocaleTimeString('ar-MA',{hour:'2-digit',minute:'2-digit'}),read:false});
   });
-  
-  document.getElementById('contacts-list').innerHTML = html;
+  const ids=new Set(S.notifications.map(n=>n.id));
+  newN.forEach(n=>{if(!ids.has(n.id))S.notifications.unshift(n);else{const ex=S.notifications.find(x=>x.id===n.id);if(ex){ex.desc=n.desc;ex.read=false;}}});
+  save();updateNotifBadge();
 }
-
-function openContactModal(apt) {
-  document.getElementById('contact-modal').classList.add('open');
+function updateNotifBadge(){
+  const u=S.notifications.filter(n=>!n.read).length;
+  document.getElementById('notif-dot').className='notif-dot'+(u>0?' show':'');
+  const nb=document.getElementById('nav-badge');
+  if(nb){if(u>0){nb.className='bnav-badge show';nb.textContent=u;}else nb.className='bnav-badge';}
 }
-
-function saveContact() {
-  const apt = document.getElementById('c-apt').value;
-  const name = document.getElementById('c-name').value;
-  const phone = document.getElementById('c-phone').value;
-  
-  S.contacts[apt] = { name, phone };
-  save();
-  closeModal('contact-modal');
-  document.getElementById('c-name').value = '';
-  document.getElementById('c-phone').value = '';
-  renderContacts();
+function openNotifs(){
+  const ml=document.getElementById('notif-modal-list');
+  if(!S.notifications.length){ml.innerHTML='<div style="text-align:center;padding:20px;color:var(--text2)">لا توجد إشعارات</div>';}
+  else ml.innerHTML=S.notifications.slice(0,15).map(n=>`
+    <div class="notif-item">
+      <div class="notif-icon ${n.type}">${n.icon}</div>
+      <div class="notif-body"><div class="notif-title">${n.title}${!n.read?'<span class="unread-dot"></span>':''}</div><div class="notif-desc">${n.desc}</div></div>
+      <div class="notif-time">${n.time}</div>
+    </div>`).join('');
+  document.getElementById('notif-modal').classList.add('open');
+  S.notifications=S.notifications.map(n=>({...n,read:true}));save();updateNotifBadge();
 }
-
-// ===== RESIDENT =====
-function renderResidentPage() {
-  if (currentUser.role !== 'resident') return;
-  
-  const apt = currentUser.apt;
-  const contact = S.contacts[apt] || {};
-  
-  document.getElementById('my-apt-num').textContent = apt;
-  
-  const m = now.getMonth() + 1;
-  const y = now.getFullYear();
-  const key = y + '-' + m;
-  const isPaid = (S.payments[key] || {})[apt];
-  
-  const statusEl = document.getElementById('my-apt-status');
-  if (isPaid) {
-    statusEl.className = 'my-apt-status paid';
-    statusEl.textContent = '✅ مسدد';
-  } else {
-    statusEl.className = 'my-apt-status unpaid';
-    statusEl.textContent = '❌ متأخر';
-  }
-  
-  let historyHtml = '';
-  for (let i = 0; i < 12; i++) {
-    const checkMonth = m - i;
-    const checkYear = checkMonth > 0 ? y : y - 1;
-    const checkKey = checkYear + '-' + (checkMonth > 0 ? checkMonth : checkMonth + 12);
-    const paid = (S.payments[checkKey] || {})[apt];
-    historyHtml += `<span style="display:inline-block;width:24px;height:24px;border-radius:6px;background:${paid ? '#16a34a' : '#dc2626'};margin:2px;"></span>`;
-  }
-  document.getElementById('res-history').innerHTML = historyHtml;
+function renderNotifSection(){
+  const list=document.getElementById('notifs-list');
+  if(!S.notifications.length){list.innerHTML='<div style="font-size:13px;color:var(--text2);padding:8px 0">لا توجد إشعارات</div>';return;}
+  list.innerHTML=S.notifications.slice(0,8).map(n=>`
+    <div class="notif-item">
+      <div class="notif-icon ${n.type}">${n.icon}</div>
+      <div class="notif-body"><div class="notif-title">${n.title}${!n.read?'<span class="unread-dot"></span>':''}</div><div class="notif-desc">${n.desc}</div></div>
+    </div>`).join('');
 }
+function clearNotifs(){S.notifications=S.notifications.map(n=>({...n,read:true}));save();updateNotifBadge();renderNotifSection();}
 
-function renderResidentBuilding() {
-  if (currentUser.role !== 'resident') return;
-  
-  const m = now.getMonth() + 1;
-  const y = now.getFullYear();
-  const key = y + '-' + m;
-  
-  const payments = S.payments[key] || {};
-  const paid = Object.values(payments).filter(p => p).length;
-  const total = S.aptCount;
-  
-  document.getElementById('res-building-info').innerHTML = `
-    <div style="font-size:13px;color:var(--text2);">
-      <p><strong>اسم العمارة:</strong> ${S.buildingName}</p>
-      <p><strong>عدد الشقق:</strong> ${total}</p>
-      <p><strong>الاشتراك الشهري:</strong> ${S.fee} درهم</p>
+// ===== WA BULK =====
+function renderWABulk(){
+  const m=now.getMonth(),y=now.getFullYear();
+  const unp=S.aptNumbers.filter(a=>!paid(a,m,y)&&S.contacts[a]&&S.contacts[a].phone);
+  const wa=document.getElementById('wa-bulk');
+  if(!unp.length){wa.innerHTML='<div style="font-size:13px;color:var(--text2)">لا يوجد سكان غير مؤدين لديهم أرقام هاتف.</div>';return;}
+  const defMsg=`السلام عليكم، نذكركم بأداء اشتراك شهر ${MONTHS[m]}: ${S.fee} درهم. شكراً — سنديك العمارة رقم 62`;
+  wa.innerHTML=`
+    <div class="form-group"><textarea id="wa-msg" style="font-size:12px;">${defMsg}</textarea></div>
+    <div style="margin-bottom:8px;font-size:12px;color:var(--text2);font-weight:600">${unp.length} ساكن لديه رقم</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn btn-wa btn-sm" onclick="sendWA()">📱 إرسال للأول</button>
+      <button class="btn btn-sm" onclick="copyNums()">📋 نسخ الأرقام</button>
     </div>
-  `;
-  
-  document.getElementById('res-stats').innerHTML = `
-    <div class="stat-card">
-      <div class="stat-val blue">${total}</div>
-      <div class="stat-lbl">إجمالي الشقق</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val green">${paid}</div>
-      <div class="stat-lbl">المسددين</div>
-    </div>
-  `;
+    <div class="wa-preview"><div class="wa-preview-label">📱 واتساب — معاينة</div><div id="wa-preview-text">${defMsg}</div></div>`;
+  document.getElementById('wa-msg').oninput=function(){document.getElementById('wa-preview-text').textContent=this.value;};
+}
+function sendWA(){
+  const m=now.getMonth(),y=now.getFullYear();
+  const unp=S.aptNumbers.filter(a=>!paid(a,m,y)&&S.contacts[a]&&S.contacts[a].phone);
+  if(!unp.length)return;
+  const msg=document.getElementById('wa-msg').value;
+  window.open(`https://wa.me/${S.contacts[unp[0]].phone.replace(/\D/g,'')}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+function copyNums(){
+  const m=now.getMonth(),y=now.getFullYear();
+  const lines=S.aptNumbers.filter(a=>!paid(a,m,y)&&S.contacts[a]&&S.contacts[a].phone).map(a=>`${S.contacts[a].name}: ${S.contacts[a].phone}`).join('\n');
+  navigator.clipboard.writeText(lines).then(()=>alert('✅ تم نسخ الأرقام!'));
+}
+
+// ===== REMINDERS =====
+function renderReminders(){
+  document.getElementById('reminders-list').innerHTML=S.reminders.map((r,i)=>`
+    <div class="rem-card ${r.active?'active-r':''}">
+      <div class="rem-icon">${r.icon||'🔔'}</div>
+      <div class="rem-body">
+        <div class="rem-title">${r.title}</div>
+        <div class="rem-sub">${r.sub||typeLabel(r.type,r.day)}</div>
+        ${r.msg?`<a href="https://wa.me/?text=${encodeURIComponent(r.msg)}" target="_blank" class="btn btn-wa btn-sm" style="margin-top:6px;display:inline-flex">📱 إرسال</a>`:''}
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;align-items:center;">
+        <button class="toggle ${r.active?'on':''}" onclick="toggleRem(${i})"></button>
+        <button onclick="delRem(${i})" style="background:none;border:none;cursor:pointer;color:var(--danger)">🗑</button>
+      </div>
+    </div>`).join('');
+}
+function typeLabel(t,d){return t==='monthly'?`شهري — يوم ${d}`:t==='weekly'?'أسبوعي':'مرة واحدة';}
+function toggleRem(i){S.reminders[i].active=!S.reminders[i].active;save();renderReminders();}
+function delRem(i){if(confirm('حذف هذا التذكير؟')){S.reminders.splice(i,1);save();renderReminders();}}
+function openReminderModal(){document.getElementById('reminder-modal').classList.add('open');}
+function saveReminder(){
+  const t=document.getElementById('rem-title').value.trim();if(!t)return;
+  S.reminders.push({id:'r'+Date.now(),title:t,type:document.getElementById('rem-type').value,day:parseInt(document.getElementById('rem-day').value)||1,msg:document.getElementById('rem-msg').value,active:true,icon:'🔔'});
+  save();closeModal('reminder-modal');renderReminders();
+  document.getElementById('rem-title').value='';document.getElementById('rem-msg').value='';
+}
+
+// ===== IDEAS =====
+function renderIdeas(){
+  const list=document.getElementById('ideas-list');
+  if(!S.ideas.length){list.innerHTML='<div style="font-size:13px;color:var(--text2);text-align:center;padding:12px">لا توجد أفكار بعد</div>';return;}
+  list.innerHTML=[...S.ideas].reverse().map((idea,ri)=>{const i=S.ideas.length-1-ri;
+    return`<div class="idea-card"><div class="idea-text">${idea.text}</div>
+      <div class="idea-meta">
+        <span class="badge" style="background:var(--accent-light);color:var(--accent)">${idea.cat}</span>
+        <span style="font-size:11px;color:var(--text2)">${idea.date}</span>
+        ${idea.ai?'<span class="ai-badge">🤖 كلود</span>':''}
+        ${idea.wa?`<a href="${idea.wa}" target="_blank" class="btn btn-wa btn-xs">📱</a>`:''}
+        <button onclick="delIdea(${i})" style="background:none;border:none;cursor:pointer;color:var(--danger)">🗑</button>
+      </div></div>`;}).join('');
+}
+function addIdea(){const t=document.getElementById('idea-input').value.trim();if(!t)return;const cat=document.getElementById('idea-cat').value;S.ideas.push({text:t,cat,date:new Date().toLocaleDateString('ar-MA'),wa:`https://wa.me/?text=${encodeURIComponent('💡 '+cat+': '+t)}`,ai:false});document.getElementById('idea-input').value='';save();renderIdeas();}
+function delIdea(i){S.ideas.splice(i,1);save();renderIdeas();}
+async function getAIIdeas(){
+  const btn=event.currentTarget;btn.textContent='⏳...';btn.disabled=true;
+  const m=now.getMonth(),y=now.getFullYear();let p=0;S.aptNumbers.forEach(a=>{if(paid(a,m,y))p++;});
+  const up=S.aptCount-p,inc=p*S.fee,exp=S.expenses.filter(e=>e.month===m&&e.year===y).reduce((a,b)=>a+b.amount,0);
+  try{
+    const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:800,messages:[{role:"user",content:`أنت مساعد لتسيير عمارة "${S.buildingName}" من ${S.aptCount} شقة، اشتراك ${S.fee} درهم. ${MONTHS[m]} ${y}: أدّت ${p}، لم تؤدِ ${up}، رصيد ${inc-exp} درهم. أعطني 3 أفكار عملية بالعربية في قائمة مرقمة.`}]})});
+    const d=await r.json();const txt=d.content.map(c=>c.text||'').join('');
+    txt.split('\n').filter(l=>l.trim()&&/\d/.test(l.slice(0,3))).forEach(line=>{const text=line.replace(/^\d+[\.\-\)]\s*/,'').trim();if(!text)return;S.ideas.push({text,cat:'عامة',date:new Date().toLocaleDateString('ar-MA'),wa:`https://wa.me/?text=${encodeURIComponent('💡 كلود: '+text)}`,ai:true});});
+    save();renderIdeas();
+  }catch(e){alert('تعذر الاتصال.');}
+  finally{btn.textContent='🤖 كلود';btn.disabled=false;}
 }
 
 // ===== SETTINGS =====
-function updateSettings() {
-  S.buildingName = document.getElementById('s-name').value;
-  S.aptCount = parseInt(document.getElementById('s-count').value) || 21;
-  S.fee = parseInt(document.getElementById('s-fee').value) || 50;
-  save();
+function renderSettings(){
+  document.getElementById('s-name').value=S.buildingName;
+  document.getElementById('s-count').value=S.aptCount;
+  document.getElementById('s-fee').value=S.fee;
+  document.getElementById('apt-nums-grid').innerHTML=S.aptNumbers.map((n,i)=>
+    `<input type="text" value="${n}" style="width:60px;text-align:center;" onchange="S.aptNumbers[${i}]=this.value;save();renderDashboard()"/>`).join('');
+}
+function updateSettings(){
+  S.buildingName=document.getElementById('s-name').value;
+  document.querySelector('.header-title').textContent='🏢 '+S.buildingName;
+  const n=parseInt(document.getElementById('s-count').value)||21;
+  S.aptCount=n;while(S.aptNumbers.length<n)S.aptNumbers.push((S.aptNumbers.length+1).toString());S.aptNumbers=S.aptNumbers.slice(0,n);
+  S.fee=parseInt(document.getElementById('s-fee').value)||50;
+  save();renderDashboard();renderSettings();
+}
+function savePasswords(){
+  const sp=document.getElementById('s-syndic-pass').value;
+  const rp=document.getElementById('s-res-pass').value;
+  if(sp){S.syndicPass=sp;document.getElementById('s-syndic-pass').value='';}
+  if(rp){S.residentPass=rp;document.getElementById('s-res-pass').value='';}
+  if(sp||rp){save();alert('✅ تم حفظ كلمات المرور');}
+}
+
+// ===== EXPENSE MODAL =====
+function openExpModal(){
+  document.getElementById('exp-date').value=new Date().toISOString().split('T')[0];
+  const m=now.getMonth(),y=now.getFullYear();
+  const mm=document.getElementById('exp-month-m');const yy=document.getElementById('exp-year-y');
+  if(mm)mm.value=m;if(yy)yy.value=y;
+  document.getElementById('exp-modal').classList.add('open');
+}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+function saveExpense(){
+  const amount=parseFloat(document.getElementById('exp-amount').value)||0;if(!amount)return;
+  const m=parseInt(document.getElementById('exp-month-m').value);
+  const y=parseInt(document.getElementById('exp-year-y').value);
+  S.expenses.push({type:document.getElementById('exp-type').value,desc:document.getElementById('exp-desc').value,amount,date:document.getElementById('exp-date').value,month:m,year:y});
+  save();closeModal('exp-modal');renderExpenses();renderDashboard();checkNotifs();
+  document.getElementById('exp-amount').value='';document.getElementById('exp-desc').value='';
+}
+function delExp(i){if(confirm('حذف؟')){S.expenses.splice(i,1);save();renderExpenses();renderDashboard();}}
+
+// ===== CONTACTS MODAL =====
+function openContactModal(apt){
+  document.getElementById('c-apt').innerHTML=S.aptNumbers.map(n=>`<option value="${n}"${n===apt?' selected':''}>${n}</option>`).join('');
+  const c=apt&&S.contacts[apt];
+  document.getElementById('c-name').value=c?c.name:'';
+  document.getElementById('c-phone').value=c?c.phone:'';
+  document.getElementById('c-notes').value=c?c.notes||'':'';
+  document.getElementById('contact-modal').classList.add('open');
+}
+function saveContact(){
+  const apt=document.getElementById('c-apt').value;
+  S.contacts[apt]={name:document.getElementById('c-name').value,phone:document.getElementById('c-phone').value,notes:document.getElementById('c-notes').value};
+  save();closeModal('contact-modal');renderContacts();
 }
 
 // ===== EXPORT =====
-function exportCSV() {
-  const m = parseInt(document.getElementById('pay-month').value);
-  const y = parseInt(document.getElementById('pay-year').value);
-  const key = y + '-' + m;
-  const payments = S.payments[key] || {};
-  
-  let csv = 'الشقة,الاسم,الحالة\n';
-  S.aptNumbers.forEach(apt => {
-    const contact = S.contacts[apt] || { name: '' };
-    const status = payments[apt] ? 'مسدد' : 'متأخر';
-    csv += `${apt},"${contact.name}",${status}\n`;
-  });
-  
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = `payments_${y}_${m}.csv`;
-  link.click();
+function exportCSV(){
+  const m=parseInt(document.getElementById('pay-month').value),y=parseInt(document.getElementById('pay-year').value);
+  let csv='الشقة,الساكن,الحالة,المبلغ\n';
+  S.aptNumbers.forEach(a=>{const c=S.contacts[a];csv+=`"${a}","${c?c.name:'—'}","${paid(a,m,y)?'أدّى':'لم يؤدِ'}","${S.fee}"\n`;});
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv'}));a.download=`مستحقات_${MONTHS[m]}_${y}.csv`;a.click();
+}
+
+// ===== MODAL BG CLOSE =====
+document.querySelectorAll('.modal-bg').forEach(bg=>{bg.addEventListener('click',e=>{if(e.target===bg)bg.classList.remove('open');});});
+
+// ===== SERVICE WORKER =====
+if('serviceWorker' in navigator){
+  const swCode=`const CACHE='syndic62v2';const ASSETS=[location.href];self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));`;
+  const blob=new Blob([swCode],{type:'application/javascript'});
+  navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
 }
 
 // ===== INIT =====
-function init() {
-  load();
-  
-  document.getElementById('s-name').value = S.buildingName;
-  document.getElementById('s-count').value = S.aptCount;
-  document.getElementById('s-fee').value = S.fee;
-  
-  // Mark payment demo
-  const m = now.getMonth() + 1;
-  const y = now.getFullYear();
-  const key = y + '-' + m;
-  if (!S.payments[key]) {
-    S.payments[key] = {};
-    for (let i = 1; i <= 10; i++) {
-      S.payments[key][i] = true;
-    }
-    save();
-  }
+load();
+// Check if already logged in (session)
+const savedSession=sessionStorage.getItem('syndic62session');
+if(savedSession){
+  try{
+    currentUser=JSON.parse(savedSession);
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('app-shell').style.display='';
+    document.getElementById('main-nav').style.display='flex';
+    setupForRole();
+    initApp();
+  }catch(e){currentUser=null;}
 }
-
-// Prevent double tap zoom
-document.addEventListener('touchend', function(e) {
-  if (e.touches.length === 0) {
-    e.preventDefault();
-  }
-}, false);
-
-init();
 </script>
 </body>
 </html>
