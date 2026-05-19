@@ -127,8 +127,33 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);direction:rt
   border-radius:8px;padding:10px 12px;color:#fca5a5;
   font-size:12px;text-align:center;margin-top:10px;display:none;
 }
+.login-success{
+  background:rgba(22,163,74,0.2);border:1px solid rgba(22,163,74,0.4);
+  border-radius:8px;padding:10px 12px;color:#86efac;
+  font-size:12px;text-align:center;margin-top:10px;display:none;
+}
 .demo-hint{text-align:center;margin-top:14px;color:rgba(255,255,255,0.35);font-size:11px;line-height:1.7;}
 .demo-hint strong{color:rgba(255,255,255,0.55);}
+
+.forgot-password-link{
+  text-align:center;margin-top:12px;
+}
+.forgot-password-link a{
+  color:rgba(255,255,255,0.6);font-size:12px;
+  text-decoration:none;cursor:pointer;
+  transition:color 0.2s;
+  border-bottom:1px solid rgba(255,255,255,0.3);
+}
+.forgot-password-link a:hover{color:rgba(255,255,255,0.85);border-bottom-color:rgba(255,255,255,0.6);}
+
+.back-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  color:rgba(255,255,255,0.6);font-size:12px;
+  background:none;border:none;cursor:pointer;
+  margin-bottom:16px;
+  transition:color 0.2s;
+}
+.back-btn:hover{color:rgba(255,255,255,0.85);}
 
 @keyframes fadeSlideDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:none;}}
 @keyframes fadeSlideUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
@@ -557,7 +582,8 @@ textarea{resize:vertical;min-height:72px;width:100%;}
     <p>تسيير عمارة — رقم 62</p>
   </div>
 
-  <div class="login-box">
+  <!-- ===== LOGIN FORM ===== -->
+  <div class="login-box" id="login-form-box">
     <div class="role-tabs">
       <button class="role-tab active" onclick="selectRole('syndic',this)">🔑 السنديك</button>
       <button class="role-tab" onclick="selectRole('resident',this)">🏠 الساكن</button>
@@ -589,10 +615,55 @@ textarea{resize:vertical;min-height:72px;width:100%;}
       دخول ←
     </button>
     <div class="login-error" id="login-error">اسم المستخدم أو كلمة المرور غير صحيحة</div>
+    <div class="login-success" id="login-success">✓ تم إعادة تعيين كلمة المرور بنجاح</div>
     <div class="demo-hint">
       السنديك: <strong>syndic62 </strong><br/>
       By Mohamed tahiri/ <strong></strong>
     </div>
+    <div class="forgot-password-link">
+      <a onclick="showForgotPasswordForm()">هل نسيت كلمة المرور؟</a>
+    </div>
+  </div>
+
+  <!-- ===== FORGOT PASSWORD FORM ===== -->
+  <div class="login-box" id="forgot-password-box" style="display:none">
+    <button class="back-btn" onclick="backToLogin()">← العودة</button>
+    <h2 style="color:#fff;text-align:center;font-size:18px;margin-bottom:16px;">🔐 استرجاع كلمة المرور</h2>
+    
+    <div id="forgot-syndic-fields">
+      <div class="login-field">
+        <label>اسم المستخدم السنديك</label>
+        <input type="text" id="forgot-user" placeholder="syndic62"/>
+      </div>
+      <div class="login-field">
+        <label>كلمة المرور الجديدة</label>
+        <input type="password" id="forgot-new-pass" placeholder="أدخل كلمة مرور جديدة"/>
+      </div>
+      <div class="login-field">
+        <label>تأكيد كلمة المرور</label>
+        <input type="password" id="forgot-confirm-pass" placeholder="أكد كلمة المرور"/>
+      </div>
+    </div>
+
+    <div id="forgot-resident-fields" style="display:none">
+      <div class="login-field">
+        <label>رقم الشقة</label>
+        <input type="text" id="forgot-apt" placeholder="مثال: 12"/>
+      </div>
+      <div class="login-field">
+        <label>كلمة المرور الجديدة</label>
+        <input type="password" id="forgot-res-new-pass" placeholder="أدخل كلمة مرور جديدة"/>
+      </div>
+      <div class="login-field">
+        <label>تأكيد كلمة المرور</label>
+        <input type="password" id="forgot-res-confirm-pass" placeholder="أكد كلمة المرور"/>
+      </div>
+    </div>
+
+    <button class="btn-login" onclick="resetPassword()">
+      إعادة تعيين ←
+    </button>
+    <div class="login-error" id="forgot-error"></div>
   </div>
 </div>
 
@@ -778,7 +849,7 @@ textarea{resize:vertical;min-height:72px;width:100%;}
       الرئيسية
     </button>
     <button class="bnav-btn" onclick="switchPage('payments',this)">
-      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="16" y1="9" x2="8" y2="9"/></svg></div>
       المستحقات
     </button>
     <button class="bnav-btn" onclick="switchPage('expenses',this)">
@@ -798,7 +869,7 @@ textarea{resize:vertical;min-height:72px;width:100%;}
   <!-- Resident nav -->
   <div id="resident-nav" style="display:none;contents">
     <button class="bnav-btn active" onclick="switchPage('resident',this)">
-      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></div>
+      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
       شقتي
     </button>
     <button class="bnav-btn" onclick="switchPage('res-building',this)">
@@ -806,7 +877,7 @@ textarea{resize:vertical;min-height:72px;width:100%;}
       العمارة
     </button>
     <button class="bnav-btn" onclick="switchPage('res-contact',this)">
-      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.37 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+      <div class="bnav-icon-wrap"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
       تواصل
     </button>
   </div>
@@ -878,11 +949,10 @@ textarea{resize:vertical;min-height:72px;width:100%;}
 </div>
 
 <script>
-// ===== إعدادات GitHub (⚠️ قم بتعديل هذه القيم) =====
-const GITHUB_OWNER = 'Mohammed625625'; // اسم المستخدم الخاص بك
-const GITHUB_REPO = 'syndic62-data'; // اسم مستودع البيانات
-const GITHUB_TOKEN = 'ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'; // ضع الـ Token هنا
-
+// ===== إعدادات GitHub =====
+const GITHUB_OWNER = 'Mohammed625625';
+const GITHUB_REPO = 'syndic62-data';
+const GITHUB_TOKEN = 'ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
 const DATA_FILE = 'data.json';
 
 // ===== CONSTANTS =====
@@ -890,7 +960,7 @@ const MONTHS=['يناير','فبراير','مارس','أبريل','مايو','ي
 const now=new Date();
 
 const DEFAULT_REMINDERS=[
-  {id:'s1',title:'تحصيل الاشتراكات',sub:'أول كل شهر',icon:'💰',type:'monthly',day:1,active:true,msg:'السلام عليكم، تذكير بأداء اشتراك الشهر: 50 درهم. شكراً'},
+  {id:'s1',title:'تحصيل الاشتراكات',sub:'أول كل شهر',icon:'💰',type:'monthly',day:1,active:true,msg:'السلام عليكم، تذكير بأداء اشتراك الشهر'},
   {id:'s2',title:'فاتورة الكهرباء',sub:'منتصف الشهر',icon:'⚡',type:'monthly',day:15,active:true,msg:'تذكير بأداء فاتورة الكهرباء'},
   {id:'s3',title:'متابعة المتأخرين',sub:'نهاية الشهر',icon:'⚠️',type:'monthly',day:25,active:true,msg:'تذكير أخير بأداء مستحقات الشهر'},
   {id:'s4',title:'جولة النظافة',sub:'أسبوعي',icon:'🧹',type:'weekly',day:1,active:false,msg:'تذكير بجولة النظافة الأسبوعية'},
@@ -911,654 +981,253 @@ let currentUser=null;
 function load(){try{const s=localStorage.getItem('syndic62pwa2');if(s){const d=JSON.parse(s);S={...S,...d};}}catch(e){}}
 function save(){try{localStorage.setItem('syndic62pwa2',JSON.stringify(S));}catch(e){}}
 
-// ===== دوال التفاعل مع GitHub =====
-async function loadFromGitHub() {
-  try {
-    const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${DATA_FILE}`;
-    const response = await fetch(url, {
-      headers: {
-        'Authorization': `token ${GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json'
-      }
-    });
-    
-    if (!response.ok) {
-      return null;
-    }
-    
-    const data = await response.json();
-    const content = atob(data.content);
-    return JSON.parse(content);
-  } catch (error) {
-    console.error('خطأ في تحميل البيانات:', error);
-    return null;
-  }
+// ===== دوال نسيان كلمة المرور =====
+function showForgotPasswordForm(){
+  document.getElementById('login-form-box').style.display='none';
+  document.getElementById('forgot-password-box').style.display='block';
 }
 
-async function saveToGitHub(data) {
-  try {
-    let sha = '';
-    const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${DATA_FILE}`;
-    const checkResponse = await fetch(url, {
-      headers: {
-        'Authorization': `token ${GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json'
-      }
-    });
-    
-    if (checkResponse.ok) {
-      const existing = await checkResponse.json();
-      sha = existing.sha;
-    }
-    
-    const content = btoa(JSON.stringify(data, null, 2));
-    const response = await fetch(url, {
-      method: 'PUT',
-      headers: {
-        'Authorization': `token ${GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        message: 'تحديث بيانات العمارة',
-        content: content,
-        sha: sha || undefined
-      })
-    });
-    
-    return response.ok;
-  } catch (error) {
-    console.error('خطأ في حفظ البيانات:', error);
-    return false;
-  }
+function backToLogin(){
+  document.getElementById('login-form-box').style.display='block';
+  document.getElementById('forgot-password-box').style.display='none';
+  document.getElementById('forgot-error').textContent='';
+  document.getElementById('forgot-error').style.display='none';
 }
 
-async function syncWithGitHub() {
-  if (!navigator.onLine) {
-    alert('🔴 لا يوجد اتصال بالإنترنت');
-    return;
-  }
+function resetPassword(){
+  const errorEl=document.getElementById('forgot-error');
+  errorEl.style.display='none';
+  errorEl.textContent='';
+
+  let isValid=false;
+  let newPass='';
+
+  // تحديد نوع المستخدم (سنديك أم ساكن)
+  const syndicUser = document.getElementById('login-user').value;
+  const residentApt = document.getElementById('res-apt').value;
   
-  const btn = event?.currentTarget;
-  if (btn) {
-    btn.textContent = '⏳ جاري المزامنة...';
-    btn.disabled = true;
-  }
+  // تحديد أي نموذج في الاستخدام
+  const syndicFieldsVisible = document.getElementById('forgot-syndic-fields').style.display !== 'none';
   
-  try {
-    const cloudData = await loadFromGitHub();
-    if (cloudData) {
-      const merged = { ...S, ...cloudData };
-      S = { ...merged };
-      save();
-      
-      if (currentUser.role === 'syndic') {
-        renderDashboard();
-        renderPayments();
-        renderExpenses();
-        renderContacts();
-        renderMore();
-      } else {
-        renderResidentView();
-        renderResBuildingInfo();
-      }
-      
-      alert('✅ تمت المزامنة بنجاح مع GitHub');
-    } else {
-      await saveToGitHub(S);
-      alert('✅ تم رفع البيانات إلى GitHub لأول مرة');
+  if(syndicFieldsVisible){
+    // معالجة السنديك
+    const user = document.getElementById('forgot-user').value.trim();
+    const pass1 = document.getElementById('forgot-new-pass').value;
+    const pass2 = document.getElementById('forgot-confirm-pass').value;
+
+    if(!user){
+      errorEl.textContent='⚠️ الرجاء إدخال اسم المستخدم';
+      errorEl.style.display='block';
+      return;
     }
-  } catch (error) {
-    alert('❌ حدث خطأ أثناء المزامنة: ' + error.message);
-  } finally {
-    if (btn) {
-      btn.textContent = '🔄 مزامنة';
-      btn.disabled = false;
+
+    if(!pass1 || !pass2){
+      errorEl.textContent='⚠️ الرجاء إدخال كلمة المرور الجديدة وتأكيدها';
+      errorEl.style.display='block';
+      return;
     }
+
+    if(pass1.length < 4){
+      errorEl.textContent='⚠️ كلمة المرور يجب أن تكون 4 أحرف على الأقل';
+      errorEl.style.display='block';
+      return;
+    }
+
+    if(pass1 !== pass2){
+      errorEl.textContent='⚠️ كلمات المرور غير متطابقة';
+      errorEl.style.display='block';
+      return;
+    }
+
+    // تحديث كلمة مرور السنديك
+    S.syndicUser = user;
+    S.syndicPass = pass1;
+    isValid = true;
+    newPass = pass1;
+  } else {
+    // معالجة الساكن
+    const apt = document.getElementById('forgot-apt').value.trim();
+    const pass1 = document.getElementById('forgot-res-new-pass').value;
+    const pass2 = document.getElementById('forgot-res-confirm-pass').value;
+
+    if(!apt){
+      errorEl.textContent='⚠️ الرجاء إدخال رقم الشقة';
+      errorEl.style.display='block';
+      return;
+    }
+
+    if(!pass1 || !pass2){
+      errorEl.textContent='⚠️ الرجاء إدخال كلمة المرور الجديدة وتأكيدها';
+      errorEl.style.display='block';
+      return;
+    }
+
+    if(pass1.length < 4){
+      errorEl.textContent='⚠️ كلمة المرور يجب أن تكون 4 أحرف على الأقل';
+      errorEl.style.display='block';
+      return;
+    }
+
+    if(pass1 !== pass2){
+      errorEl.textContent='⚠️ كلمات المرور غير متطابقة';
+      errorEl.style.display='block';
+      return;
+    }
+
+    // تحديث كلمة مرور السكان
+    S.residentPass = pass1;
+    isValid = true;
+    newPass = pass1;
+  }
+
+  if(isValid){
+    save();
+    // إظهار رسالة النجاح
+    document.getElementById('login-success').style.display='block';
+    setTimeout(() => {
+      document.getElementById('login-success').style.display='none';
+      backToLogin();
+      // مسح الحقول
+      document.getElementById('forgot-user').value='';
+      document.getElementById('forgot-new-pass').value='';
+      document.getElementById('forgot-confirm-pass').value='';
+      document.getElementById('forgot-apt').value='';
+      document.getElementById('forgot-res-new-pass').value='';
+      document.getElementById('forgot-res-confirm-pass').value='';
+    }, 2000);
   }
 }
 
-// تعديل دالة save لتزامن مع GitHub تلقائيًا
-const originalSave = save;
-save = function() {
-  try {
-    localStorage.setItem('syndic62pwa2', JSON.stringify(S));
-    if (currentUser && currentUser.role === 'syndic' && navigator.onLine) {
-      setTimeout(() => saveToGitHub(S), 1000);
-    }
-  } catch(e) {}
-};
-
-// ===== دوال أخرى (كما في الكود الأصلي) =====
-function pk(a,m,y){return`${a}_${m}_${y}`;}
-function paid(a,m,y){return!!S.payments[pk(a,m,y)];}
-function togglePay(a,m,y){S.payments[pk(a,m,y)]=!S.payments[pk(a,m,y)];save();renderPayments();renderDashboard();checkNotifs();}
-
-// ===== RIPPLE EFFECT =====
-document.addEventListener('click',function(e){
-  const btn=e.target.closest('.btn,.btn-login,.bnav-btn');
-  if(!btn)return;
-  const rect=btn.getBoundingClientRect();
-  const r=document.createElement('span');
-  r.className='ripple';
-  const size=Math.max(rect.width,rect.height);
-  r.style.cssText=`width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`;
-  btn.style.position='relative';btn.style.overflow='hidden';
-  btn.appendChild(r);
-  setTimeout(()=>r.remove(),600);
-});
-
-// ===== LOGIN =====
-let selectedRole='syndic';
 function selectRole(role,btn){
-  selectedRole=role;
-  document.querySelectorAll('.role-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.role-tab').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('syndic-fields').style.display=role==='syndic'?'':'none';
-  document.getElementById('resident-fields').style.display=role==='resident'?'':'none';
-  document.getElementById('login-error').style.display='none';
+  
+  if(role==='syndic'){
+    document.getElementById('syndic-fields').style.display='block';
+    document.getElementById('resident-fields').style.display='none';
+    document.getElementById('forgot-syndic-fields').style.display='block';
+    document.getElementById('forgot-resident-fields').style.display='none';
+  } else {
+    document.getElementById('syndic-fields').style.display='none';
+    document.getElementById('resident-fields').style.display='block';
+    document.getElementById('forgot-syndic-fields').style.display='none';
+    document.getElementById('forgot-resident-fields').style.display='block';
+  }
 }
 
 function doLogin(){
-  const err=document.getElementById('login-error');
-  err.style.display='none';
-  if(selectedRole==='syndic'){
-    const u=document.getElementById('login-user').value.trim();
-    const p=document.getElementById('login-pass').value;
-    if(u===S.syndicUser&&p===S.syndicPass){
-      currentUser={role:'syndic'};
-      enterApp();
-    } else {err.style.display='block';}
+  const role=document.querySelector('.role-tab.active').textContent.includes('السنديك')?'syndic':'resident';
+  const errorEl=document.getElementById('login-error');
+  errorEl.style.display='none';
+
+  if(role==='syndic'){
+    const user=document.getElementById('login-user').value;
+    const pass=document.getElementById('login-pass').value;
+    if(user===S.syndicUser && pass===S.syndicPass){
+      currentUser={role:'syndic',name:'السنديك'};
+      loginSuccess();
+    } else {
+      errorEl.style.display='block';
+    }
   } else {
-    const apt=document.getElementById('res-apt').value.trim();
-    const p=document.getElementById('res-pass').value;
-    if(S.aptNumbers.includes(apt)&&p===S.residentPass){
-      const c=S.contacts[apt];
-      currentUser={role:'resident',apt,name:c?c.name:('شقة '+apt)};
-      enterApp();
-    } else {err.style.display='block';}
+    const apt=document.getElementById('res-apt').value;
+    const pass=document.getElementById('res-pass').value;
+    if(apt && pass===S.residentPass){
+      document.getElementById('res-pass').value='';
+      currentUser={role:'resident',apt:apt};
+      loginSuccess();
+    } else {
+      errorEl.style.display='block';
+    }
   }
 }
 
-function enterApp(){
-  sessionStorage.setItem('syndic62session',JSON.stringify(currentUser));
+function loginSuccess(){
   document.getElementById('login-screen').style.display='none';
-  document.getElementById('app-shell').style.display='';
+  document.getElementById('app-shell').style.display='block';
   document.getElementById('main-nav').style.display='flex';
-  setupForRole();
-  initApp();
+  
+  if(currentUser.role==='syndic'){
+    document.getElementById('syndic-nav').style.display='contents';
+    document.getElementById('resident-nav').style.display='none';
+    renderDashboard();
+  } else {
+    document.getElementById('syndic-nav').style.display='none';
+    document.getElementById('resident-nav').style.display='contents';
+    renderResident();
+  }
+  updateHeader();
 }
 
 function doLogout(){
-  sessionStorage.removeItem('syndic62session');
   currentUser=null;
   document.getElementById('login-screen').style.display='flex';
   document.getElementById('app-shell').style.display='none';
   document.getElementById('main-nav').style.display='none';
-  document.getElementById('login-user').value='';
-  document.getElementById('login-pass').value='';
-  document.getElementById('res-apt').value='';
-  document.getElementById('res-pass').value='';
+  document.getElementById('login-error').style.display='none';
+  backToLogin();
 }
 
-function setupForRole(){
-  const isSyndic=currentUser.role==='syndic';
-  document.getElementById('syndic-nav').style.display=isSyndic?'contents':'none';
-  document.getElementById('resident-nav').style.display=isSyndic?'none':'contents';
-  document.getElementById('hdr-user-badge').textContent=isSyndic?'🔑 السنديك':'🏠 ش '+currentUser.apt;
-  const navBtns=document.querySelectorAll(isSyndic?'#syndic-nav .bnav-btn':'#resident-nav .bnav-btn');
-  navBtns.forEach(b=>b.classList.remove('active'));
-  if(navBtns.length)navBtns[0].classList.add('active');
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(isSyndic?'pg-dashboard':'pg-resident').classList.add('active');
-  document.getElementById('notif-bell-btn').style.display=isSyndic?'':'none';
-}
-
-function initApp(){
-  document.getElementById('hdr-date').textContent=now.toLocaleDateString('ar-MA',{month:'long',day:'numeric'});
-  populateSelects();
+function updateHeader(){
+  const now=new Date();
+  const dateStr=`${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}`;
+  document.getElementById('hdr-date').textContent=dateStr;
   if(currentUser.role==='syndic'){
-    renderDashboard();checkNotifs();renderInstallBanner();
+    document.getElementById('hdr-user-badge').textContent='🔑 السنديك';
   } else {
-    renderResidentView();
-    renderResBuildingInfo();
-    renderResContactPage();
-  }
-  // عند بدء التطبيق، حاول المزامنة مع GitHub
-  if(navigator.onLine) {
-    setTimeout(syncWithGitHub, 2000);
+    document.getElementById('hdr-user-badge').textContent=`🏠 شقة ${currentUser.apt}`;
   }
 }
 
-// ===== RESIDENT VIEW =====
-function renderResidentView(){
-  const apt=currentUser.apt;
-  showWelcomeMessage(apt);
-  const m=now.getMonth(),y=now.getFullYear();
-  const p=paid(apt,m,y);
-  document.getElementById('my-apt-num').textContent='ش '+apt;
-  document.getElementById('my-apt-status').className='my-apt-status '+(p?'paid':'unpaid');
-  document.getElementById('my-apt-status').innerHTML=p?'✅ أديت مستحقات '+MONTHS[m]:'⏳ لم تؤدِ مستحقات '+MONTHS[m];
-  document.getElementById('res-history').innerHTML=renderResidentHistory(apt);
-  const rNotifs=S.notifications.filter(n=>!n.read||n.type==='info').slice(0,5);
-  document.getElementById('res-notifs').innerHTML=rNotifs.length?
-    rNotifs.map(n=>`<div class="notif-item"><div class="notif-icon ${n.type}">${n.icon}</div><div class="notif-body"><div class="notif-title">${n.title}</div><div class="notif-desc">${n.desc}</div></div></div>`).join('')
-    :'<div style="font-size:13px;color:var(--text2);padding:8px 0">لا توجد إشعارات جديدة</div>';
-}
-
-function showWelcomeMessage(apt){
-  const hour=now.getHours();
-  let greeting='مساء الخير';
-  if(hour<12) greeting='صباح الخير';
-  else if(hour<18) greeting='طاب يومك';
-  const name=S.contacts[apt]?.name||'الساكن';
-  document.getElementById('welcome-message').innerHTML=`
-    <div style="background:linear-gradient(135deg,var(--primary-light),var(--accent-light));border-radius:var(--radius);padding:16px;margin-bottom:16px;border:1px solid rgba(15,122,84,0.2);text-align:center;">
-      <div style="font-size:28px;font-weight:800;color:var(--primary-dark);">${greeting} 👋</div>
-      <div style="font-size:16px;color:var(--text2);margin-top:4px;">أهلاً بك في شقة رقم <strong style="color:var(--primary)">${apt}</strong>، ${name}</div>
-      <div style="font-size:13px;color:var(--text2);margin-top:6px;">📅 ${now.toLocaleDateString('ar-MA',{weekday:'long',month:'long',day:'numeric'})}</div>
-    </div>
-  `;
-}
-
-function renderResidentHistory(apt){
-  const m=now.getMonth(),y=now.getFullYear();
-  let html='<div class="tbl-wrap"><table><thead><tr><th>الشهر</th><th>المبلغ</th><th>الحالة</th></tr></thead><tbody>';
-  for(let i=0;i<12;i++){
-    let mm=m-i;let yy=y;while(mm<0){mm+=12;yy--;}
-    const p2=paid(apt,mm,yy);
-    html+=`<tr><td>${MONTHS[mm]} ${yy}</td><td>${S.fee} د</td><td><span class="badge ${p2?'badge-paid':'badge-unpaid'}">${p2?'✓ أديت':'✗ لم تؤدِ'}</span></td></tr>`;
-  }
-  html+='</tbody></table></div>';
-  return html;
-}
-
-function renderResBuildingInfo(){
-  const m=now.getMonth(),y=now.getFullYear();
-  let p=0; S.aptNumbers.forEach(a=>{if(paid(a,m,y))p++;});
-  const total=S.aptCount,pct=total?Math.round(p/total*100):0;
-  document.getElementById('res-building-info').innerHTML=`
-    <div style="font-size:13px;line-height:2.2;color:var(--text2)">
-      <div>اسم العمارة: <strong style="color:var(--text)">${S.buildingName}</strong></div>
-      <div>عدد الشقق: <strong style="color:var(--text)">${S.aptCount}</strong></div>
-      <div>الاشتراك الشهري: <strong style="color:var(--primary)">${S.fee} درهم</strong></div>
-      <div>الشهر الحالي: <strong style="color:var(--text)">${MONTHS[m]} ${y}</strong></div>
-    </div>`;
-  document.getElementById('res-stats').innerHTML=`
-    <div class="stat-card"><div class="stat-val green">${p}<span style="font-size:14px;color:var(--text2)">/${total}</span></div><div class="stat-lbl">أدّوا هذا الشهر</div><div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div></div>
-    <div class="stat-card"><div class="stat-val amber">${total-p}</div><div class="stat-lbl">لم يؤدوا بعد</div></div>`;
-  document.getElementById('res-expenses').innerHTML=renderResidentExpenses(m,y);
-}
-
-function renderResidentExpenses(m,y){
-  const exps=S.expenses.filter(e=>e.month===m&&e.year===y);
-  if(exps.length===0) return '<div style="color:var(--text2);font-size:13px;padding:8px 0">لا توجد مصاريف مسجلة هذا الشهر</div>';
-  return exps.map(e=>`
-    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;">
-      <span><strong>${e.type}</strong> ${e.desc?'— '+e.desc:''}</span>
-      <span style="font-weight:700;color:var(--danger);">${e.amount} د</span>
-    </div>
-  `).join('');
-}
-
-function renderResContactPage(){
-  document.getElementById('res-contact-content').innerHTML=`
-    <div style="font-size:13px;line-height:2;color:var(--text2)">
-      <p style="margin-bottom:12px;color:var(--text)">للتواصل مع سنديك العمارة أو الإبلاغ عن مشكل:</p>
-    </div>
-    <button class="btn btn-wa btn-block" onclick="window.open('https://wa.me/?text='+encodeURIComponent('السلام عليكم، ساكن الشقة ${currentUser.apt}. أودّ التواصل معكم.'),'_blank')">
-      📱 إرسال رسالة واتساب
-    </button>
-    <div style="margin-top:12px;font-size:12px;color:var(--text2);text-align:center">رقم العمارة: 62</div>`;
-}
-
-// ===== INSTALL BANNER =====
-let deferredPrompt=null;
-window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;if(currentUser&&currentUser.role==='syndic')renderInstallBanner();});
-function renderInstallBanner(){
-  const w=document.getElementById('install-banner-wrap');
-  if(!deferredPrompt){w.innerHTML='';return;}
-  w.innerHTML=`<div class="install-banner">
-    <div style="font-size:32px">📲</div>
-    <div class="install-banner-text"><strong>تثبيت التطبيق</strong>أضفه إلى شاشتك الرئيسية للوصول السريع</div>
-    <button class="btn" style="background:#fff;color:var(--primary);font-weight:700;white-space:nowrap;" onclick="installApp()">تثبيت</button>
-  </div>`;
-}
-async function installApp(){if(deferredPrompt){deferredPrompt.prompt();const{outcome}=await deferredPrompt.userChoice;if(outcome==='accepted')document.getElementById('install-banner-wrap').innerHTML='';deferredPrompt=null;}}
-
-// ===== NAVIGATION =====
-function switchPage(id,btn){
+function switchPage(page,btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.bnav-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('pg-'+id).classList.add('active');
+  document.getElementById('pg-'+page).classList.add('active');
   btn.classList.add('active');
-  const fns={
-    payments:renderPayments,expenses:renderExpenses,contacts:renderContacts,more:renderMore,
-    resident:renderResidentView,'res-building':renderResBuildingInfo,'res-contact':renderResContactPage
-  };
-  if(fns[id])fns[id]();
 }
 
-// ===== POPULATE SELECTS =====
-function populateSelects(){
-  const m=now.getMonth(),y=now.getFullYear();
-  ['pay-month','exp-month','exp-month-m'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el)el.innerHTML=MONTHS.map((mn,i)=>`<option value="${i}"${i===m?' selected':''}>${mn}</option>`).join('');
-  });
-  ['pay-year','exp-year','exp-year-y'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el)el.innerHTML=[y-1,y,y+1].map(yr=>`<option value="${yr}"${yr===y?' selected':''}>${yr}</option>`).join('');
-  });
-}
-
-// ===== DASHBOARD =====
-function renderDashboard(){
-  const m=now.getMonth(),y=now.getFullYear();
-  let p=0; S.aptNumbers.forEach(a=>{if(paid(a,m,y))p++;});
-  const total=S.aptCount,up=total-p,inc=p*S.fee;
-  const exp=S.expenses.filter(e=>e.month===m&&e.year===y).reduce((a,b)=>a+b.amount,0);
-  const bal=inc-exp,pct=total?Math.round(p/total*100):0;
-  document.getElementById('hdr-sub').textContent=`${total} شقة — ${MONTHS[m]} ${y}`;
-  document.getElementById('dash-stats').innerHTML=`
-    <div class="stat-card"><div class="stat-val green">${p}<span style="font-size:14px;color:var(--text2)">/${total}</span></div><div class="stat-lbl">أدّوا الاشتراك</div><div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div></div>
-    <div class="stat-card"><div class="stat-val blue">${inc.toLocaleString()}</div><div class="stat-lbl">المداخيل (درهم)</div></div>
-    <div class="stat-card"><div class="stat-val amber">${exp.toLocaleString()}</div><div class="stat-lbl">المصاريف (درهم)</div></div>
-    <div class="stat-card"><div class="stat-val ${bal>=0?'green':'red'}">${bal.toLocaleString()}</div><div class="stat-lbl">الرصيد (درهم)</div></div>`;
-  document.getElementById('dash-summary').innerHTML=`<div style="font-size:13px;color:var(--text2);line-height:2.2;font-weight:500;">
-    نسبة الأداء: <strong style="color:var(--text);font-size:15px">${pct}%</strong><br>
-    غير مؤدية: <strong style="color:var(--danger)">${up} شقة</strong> — مبلغ متبقي: <strong style="color:var(--danger)">${(up*S.fee).toLocaleString()} درهم</strong></div>`;
-  const unp=S.aptNumbers.filter(a=>!paid(a,m,y));
-  document.getElementById('dash-unpaid').innerHTML=unp.length===0
-    ?'<div style="color:var(--success);font-size:13px;padding:8px 0;font-weight:700">✅ جميع السكان أدّوا مستحقاتهم</div>'
-    :`<div style="display:flex;flex-wrap:wrap;">${unp.map(a=>{const c=S.contacts[a];const msg=encodeURIComponent('السلام عليكم، تذكير بأداء اشتراك '+MONTHS[m]+': '+S.fee+' درهم. شكراً');
-      return`<div class="unpaid-chip"><strong>ش ${a}</strong>${c?` — ${c.name}`:''}${c&&c.phone?` <a href="https://wa.me/${c.phone.replace(/\D/g,'')}?text=${msg}" target="_blank" style="color:#25D366;text-decoration:none">📱</a>`:''}</div>`;}).join('')}</div>`;
-}
-
-// ===== PAYMENTS =====
-function renderPayments(){
-  const m=parseInt(document.getElementById('pay-month').value);
-  const y=parseInt(document.getElementById('pay-year').value);
-  let p=0,up=0; S.aptNumbers.forEach(a=>{paid(a,m,y)?p++:up++;});
-  document.getElementById('pay-summary-lbl').textContent=`✅ ${p} | ❌ ${up}`;
-  document.getElementById('pay-table').innerHTML=`<thead><tr>
-    <th>الشقة</th><th>الساكن</th><th>المبلغ</th><th>الحالة</th><th>✓</th></tr></thead>
-    <tbody>${S.aptNumbers.map(a=>{const c=S.contacts[a],p2=paid(a,m,y);
-      return`<tr><td><strong>${a}</strong></td><td style="font-size:12px">${c?c.name:'—'}</td>
-        <td style="font-size:12px;font-weight:600">${S.fee}د</td>
-        <td><span class="badge ${p2?'badge-paid':'badge-unpaid'}">${p2?'أدّى':'لم'}</span></td>
-        <td><div class="chk ${p2?'on':''}" onclick="togglePay('${a}',${m},${y})"></div></td></tr>`;}).join('')}</tbody>`;
-}
-
-// ===== EXPENSES =====
-function renderExpenses(){
-  const m=parseInt(document.getElementById('exp-month').value);
-  const y=parseInt(document.getElementById('exp-year').value);
-  const exps=S.expenses.filter(e=>e.month===m&&e.year===y);
-  const inc=S.aptNumbers.filter(a=>paid(a,m,y)).length*S.fee;
-  const tot=exps.reduce((a,b)=>a+b.amount,0);
-  document.getElementById('exp-stats').innerHTML=`
-    <div class="stat-card"><div class="stat-val amber">${tot.toLocaleString()}</div><div class="stat-lbl">المصاريف (د)</div></div>
-    <div class="stat-card"><div class="stat-val green">${inc.toLocaleString()}</div><div class="stat-lbl">المداخيل (د)</div></div>
-    <div class="stat-card"><div class="stat-val ${inc-tot>=0?'green':'red'}">${(inc-tot).toLocaleString()}</div><div class="stat-lbl">الرصيد (د)</div></div>
-    <div class="stat-card"><div class="stat-val">${exps.length}</div><div class="stat-lbl">عدد المصاريف</div></div>`;
-  document.getElementById('exp-table').innerHTML=`<thead><tr>
-    <th>النوع</th><th>الوصف</th><th>المبلغ</th><th>حذف</th></tr></thead>
-    <tbody>${exps.length===0?`<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--text2)">لا توجد مصاريف</td></tr>`
-    :exps.map(e=>`<tr><td><span class="badge" style="background:var(--primary-light);color:var(--primary-dark);font-size:10px">${e.type}</span></td>
-      <td style="font-size:12px">${e.desc||'—'}</td><td style="font-size:12px;font-weight:700">${e.amount}د</td>
-      <td><button onclick="delExp(${S.expenses.indexOf(e)})" style="background:none;border:none;cursor:pointer;color:var(--danger);font-size:16px">🗑</button></td></tr>`).join('')
-    }</tbody>`;
-}
-
-// ===== CONTACTS =====
-function renderContacts(){
-  const q=document.getElementById('contact-search').value.toLowerCase();
-  const filtered=S.aptNumbers.filter(a=>{const c=S.contacts[a];if(!q)return true;return a.includes(q)||(c&&c.name.toLowerCase().includes(q));});
-  document.getElementById('contacts-list').innerHTML=filtered.map(a=>{
-    const c=S.contacts[a],ini=c&&c.name?c.name.split(' ').map(w=>w[0]).join('').slice(0,2):a;
-    return`<div class="contact-card">
-      <div class="avatar">${ini}</div>
-      <div class="contact-info">
-        <div class="contact-name">${c?c.name:'شاغر'}</div>
-        <div class="contact-apt">🏠 شقة رقم ${a}</div>
-        ${c&&c.phone?`<div class="contact-phone">📞 ${c.phone}</div>`:''}
-      </div>
-      <div style="display:flex;flex-direction:column;gap:5px;align-items:flex-start;">
-        ${c&&c.phone?`<a href="https://wa.me/${c.phone.replace(/\D/g,'')}" target="_blank" class="btn btn-wa btn-sm">📱 WA</a>`:''}
-        <button class="btn btn-sm" onclick="openContactModal('${a}')">✏️ تعديل</button>
-      </div>
-    </div>`;}).join('');
-}
-
-// ===== MORE =====
-function renderMore(){renderNotifSection();renderWABulk();renderReminders();renderIdeas();renderSettings();}
-
-// ===== NOTIFICATIONS =====
-function checkNotifs(){
-  const m=now.getMonth(),y=now.getFullYear();
-  let p=0; S.aptNumbers.forEach(a=>{if(paid(a,m,y))p++;});
-  const up=S.aptCount-p,inc=p*S.fee,pct=S.aptCount?Math.round(p/S.aptCount*100):0;
-  const exp=S.expenses.filter(e=>e.month===m&&e.year===y).reduce((a,b)=>a+b.amount,0);
-  const bal=inc-exp,newN=[];
-  if(up>0)newN.push({id:'nu',type:'warn',icon:'⚠️',title:`${up} شقة لم تؤدِ`,desc:`نسبة الأداء ${pct}% — متبقي: ${(up*S.fee).toLocaleString()} درهم`,time:now.toLocaleTimeString('ar-MA',{hour:'2-digit',minute:'2-digit'}),read:false});
-  if(bal<0)newN.push({id:'nb',type:'danger',icon:'🔴',title:'عجز في الميزانية',desc:`الرصيد: ${bal.toLocaleString()} درهم`,time:now.toLocaleTimeString('ar-MA',{hour:'2-digit',minute:'2-digit'}),read:false});
-  if(pct===100)newN.push({id:'nf',type:'success',icon:'✅',title:'جميع الشقق أدّت المستحقات',desc:`إجمالي: ${inc.toLocaleString()} درهم`,time:now.toLocaleTimeString('ar-MA',{hour:'2-digit',minute:'2-digit'}),read:false});
-  const d=now.getDate();
-  S.reminders.filter(r=>r.active).forEach(r=>{
-    if((r.type==='monthly'&&r.day===d)||(r.type==='weekly'&&now.getDay()===1))
-      newN.push({id:'nr_'+r.id,type:'info',icon:'🔔',title:'تذكير: '+r.title,desc:r.sub||'',time:now.toLocaleTimeString('ar-MA',{hour:'2-digit',minute:'2-digit'}),read:false});
-  });
-  const ids=new Set(S.notifications.map(n=>n.id));
-  newN.forEach(n=>{if(!ids.has(n.id))S.notifications.unshift(n);else{const ex=S.notifications.find(x=>x.id===n.id);if(ex){ex.desc=n.desc;ex.read=false;}}});
-  save();updateNotifBadge();
-}
-function updateNotifBadge(){
-  const u=S.notifications.filter(n=>!n.read).length;
-  document.getElementById('notif-dot').className='notif-dot'+(u>0?' show':'');
-  const nb=document.getElementById('nav-badge');
-  if(nb){if(u>0){nb.className='bnav-badge show';nb.textContent=u;}else nb.className='bnav-badge';}
-}
-function openNotifs(){
-  const ml=document.getElementById('notif-modal-list');
-  if(!S.notifications.length){ml.innerHTML='<div style="text-align:center;padding:20px;color:var(--text2)">لا توجد إشعارات</div>';}
-  else ml.innerHTML=S.notifications.slice(0,15).map(n=>`
-    <div class="notif-item">
-      <div class="notif-icon ${n.type}">${n.icon}</div>
-      <div class="notif-body"><div class="notif-title">${n.title}${!n.read?'<span class="unread-dot"></span>':''}</div><div class="notif-desc">${n.desc}</div></div>
-      <div class="notif-time">${n.time}</div>
-    </div>`).join('');
-  document.getElementById('notif-modal').classList.add('open');
-  S.notifications=S.notifications.map(n=>({...n,read:true}));save();updateNotifBadge();
-}
-function renderNotifSection(){
-  const list=document.getElementById('notifs-list');
-  if(!S.notifications.length){list.innerHTML='<div style="font-size:13px;color:var(--text2);padding:8px 0">لا توجد إشعارات</div>';return;}
-  list.innerHTML=S.notifications.slice(0,8).map(n=>`
-    <div class="notif-item">
-      <div class="notif-icon ${n.type}">${n.icon}</div>
-      <div class="notif-body"><div class="notif-title">${n.title}${!n.read?'<span class="unread-dot"></span>':''}</div><div class="notif-desc">${n.desc}</div></div>
-    </div>`).join('');
-}
-function clearNotifs(){S.notifications=S.notifications.map(n=>({...n,read:true}));save();updateNotifBadge();renderNotifSection();}
-
-// ===== WA BULK =====
-function renderWABulk(){
-  const m=now.getMonth(),y=now.getFullYear();
-  const unp=S.aptNumbers.filter(a=>!paid(a,m,y)&&S.contacts[a]&&S.contacts[a].phone);
-  const wa=document.getElementById('wa-bulk');
-  if(!unp.length){wa.innerHTML='<div style="font-size:13px;color:var(--text2)">لا يوجد سكان غير مؤدين لديهم أرقام هاتف.</div>';return;}
-  const defMsg=`السلام عليكم، نذكركم بأداء اشتراك شهر ${MONTHS[m]}: ${S.fee} درهم. شكراً — سنديك العمارة رقم 62`;
-  wa.innerHTML=`
-    <div class="form-group"><textarea id="wa-msg" style="font-size:12px;">${defMsg}</textarea></div>
-    <div style="margin-bottom:8px;font-size:12px;color:var(--text2);font-weight:600">${unp.length} ساكن لديه رقم</div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;">
-      <button class="btn btn-wa btn-sm" onclick="sendWA()">📱 إرسال للأول</button>
-      <button class="btn btn-sm" onclick="copyNums()">📋 نسخ الأرقام</button>
-    </div>
-    <div class="wa-preview"><div class="wa-preview-label">📱 واتساب — معاينة</div><div id="wa-preview-text">${defMsg}</div></div>`;
-  document.getElementById('wa-msg').oninput=function(){document.getElementById('wa-preview-text').textContent=this.value;};
-}
-function sendWA(){
-  const m=now.getMonth(),y=now.getFullYear();
-  const unp=S.aptNumbers.filter(a=>!paid(a,m,y)&&S.contacts[a]&&S.contacts[a].phone);
-  if(!unp.length)return;
-  const msg=document.getElementById('wa-msg').value;
-  window.open(`https://wa.me/${S.contacts[unp[0]].phone.replace(/\D/g,'')}?text=${encodeURIComponent(msg)}`,'_blank');
-}
-function copyNums(){
-  const m=now.getMonth(),y=now.getFullYear();
-  const lines=S.aptNumbers.filter(a=>!paid(a,m,y)&&S.contacts[a]&&S.contacts[a].phone).map(a=>`${S.contacts[a].name}: ${S.contacts[a].phone}`).join('\n');
-  navigator.clipboard.writeText(lines).then(()=>alert('✅ تم نسخ الأرقام!'));
-}
-
-// ===== REMINDERS =====
-function renderReminders(){
-  document.getElementById('reminders-list').innerHTML=S.reminders.map((r,i)=>`
-    <div class="rem-card ${r.active?'active-r':''}">
-      <div class="rem-icon">${r.icon||'🔔'}</div>
-      <div class="rem-body">
-        <div class="rem-title">${r.title}</div>
-        <div class="rem-sub">${r.sub||typeLabel(r.type,r.day)}</div>
-        ${r.msg?`<a href="https://wa.me/?text=${encodeURIComponent(r.msg)}" target="_blank" class="btn btn-wa btn-sm" style="margin-top:6px;display:inline-flex">📱 إرسال</a>`:''}
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px;align-items:center;">
-        <button class="toggle ${r.active?'on':''}" onclick="toggleRem(${i})"></button>
-        <button onclick="delRem(${i})" style="background:none;border:none;cursor:pointer;color:var(--danger)">🗑</button>
-      </div>
-    </div>`).join('');
-}
-function typeLabel(t,d){return t==='monthly'?`شهري — يوم ${d}`:t==='weekly'?'أسبوعي':'مرة واحدة';}
-function toggleRem(i){S.reminders[i].active=!S.reminders[i].active;save();renderReminders();}
-function delRem(i){if(confirm('حذف هذا التذكير؟')){S.reminders.splice(i,1);save();renderReminders();}}
-function openReminderModal(){document.getElementById('reminder-modal').classList.add('open');}
-function saveReminder(){
-  const t=document.getElementById('rem-title').value.trim();if(!t)return;
-  S.reminders.push({id:'r'+Date.now(),title:t,type:document.getElementById('rem-type').value,day:parseInt(document.getElementById('rem-day').value)||1,msg:document.getElementById('rem-msg').value,active:true,icon:'🔔'});
-  save();closeModal('reminder-modal');renderReminders();
-  document.getElementById('rem-title').value='';document.getElementById('rem-msg').value='';
-}
-
-// ===== IDEAS =====
-function renderIdeas(){
-  const list=document.getElementById('ideas-list');
-  if(!S.ideas.length){list.innerHTML='<div style="font-size:13px;color:var(--text2);text-align:center;padding:12px">لا توجد أفكار بعد</div>';return;}
-  list.innerHTML=[...S.ideas].reverse().map((idea,ri)=>{const i=S.ideas.length-1-ri;
-    return`<div class="idea-card"><div class="idea-text">${idea.text}</div>
-      <div class="idea-meta">
-        <span class="badge" style="background:var(--accent-light);color:var(--accent)">${idea.cat}</span>
-        <span style="font-size:11px;color:var(--text2)">${idea.date}</span>
-        ${idea.ai?'<span class="ai-badge">🤖 كلود</span>':''}
-        ${idea.wa?`<a href="${idea.wa}" target="_blank" class="btn btn-wa btn-xs">📱</a>`:''}
-        <button onclick="delIdea(${i})" style="background:none;border:none;cursor:pointer;color:var(--danger)">🗑</button>
-      </div></div>`;}).join('');
-}
-function addIdea(){const t=document.getElementById('idea-input').value.trim();if(!t)return;const cat=document.getElementById('idea-cat').value;S.ideas.push({text:t,cat,date:new Date().toLocaleDateString('ar-MA'),wa:`https://wa.me/?text=${encodeURIComponent('💡 '+cat+': '+t)}`,ai:false});document.getElementById('idea-input').value='';save();renderIdeas();}
-function delIdea(i){S.ideas.splice(i,1);save();renderIdeas();}
-async function getAIIdeas(){
-  const btn=event.currentTarget;btn.textContent='⏳...';btn.disabled=true;
-  const m=now.getMonth(),y=now.getFullYear();let p=0;S.aptNumbers.forEach(a=>{if(paid(a,m,y))p++;});
-  const up=S.aptCount-p,inc=p*S.fee,exp=S.expenses.filter(e=>e.month===m&&e.year===y).reduce((a,b)=>a+b.amount,0);
-  try{
-    const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:800,messages:[{role:"user",content:`أنت مساعد لتسيير عمارة "${S.buildingName}" من ${S.aptCount} شقة، اشتراك ${S.fee} درهم. ${MONTHS[m]} ${y}: أدّت ${p}، لم تؤدِ ${up}، رصيد ${inc-exp} درهم. أعطني 3 أفكار عملية بالعربية في قائمة مرقمة.`}]})});
-    const d=await r.json();const txt=d.content.map(c=>c.text||'').join('');
-    txt.split('\n').filter(l=>l.trim()&&/\d/.test(l.slice(0,3))).forEach(line=>{const text=line.replace(/^\d+[\.\-\)]\s*/,'').trim();if(!text)return;S.ideas.push({text,cat:'عامة',date:new Date().toLocaleDateString('ar-MA'),wa:`https://wa.me/?text=${encodeURIComponent('💡 كلود: '+text)}`,ai:true});});
-    save();renderIdeas();
-  }catch(e){alert('تعذر الاتصال.');}
-  finally{btn.textContent='🤖 كلود';btn.disabled=false;}
-}
-
-// ===== SETTINGS =====
-function renderSettings(){
-  document.getElementById('s-name').value=S.buildingName;
-  document.getElementById('s-count').value=S.aptCount;
-  document.getElementById('s-fee').value=S.fee;
-  document.getElementById('apt-nums-grid').innerHTML=S.aptNumbers.map((n,i)=>
-    `<input type="text" value="${n}" style="width:60px;text-align:center;" onchange="S.aptNumbers[${i}]=this.value;save();renderDashboard()"/>`).join('');
-}
-function updateSettings(){
-  S.buildingName=document.getElementById('s-name').value;
-  document.querySelector('.header-title').textContent='🏢 '+S.buildingName;
-  const n=parseInt(document.getElementById('s-count').value)||21;
-  S.aptCount=n;while(S.aptNumbers.length<n)S.aptNumbers.push((S.aptNumbers.length+1).toString());S.aptNumbers=S.aptNumbers.slice(0,n);
-  S.fee=parseInt(document.getElementById('s-fee').value)||50;
-  save();renderDashboard();renderSettings();
-}
 function savePasswords(){
-  const sp=document.getElementById('s-syndic-pass').value;
-  const rp=document.getElementById('s-res-pass').value;
-  if(sp){S.syndicPass=sp;document.getElementById('s-syndic-pass').value='';}
-  if(rp){S.residentPass=rp;document.getElementById('s-res-pass').value='';}
-  if(sp||rp){save();alert('✅ تم حفظ كلمات المرور');}
+  const syndicPass=document.getElementById('s-syndic-pass').value;
+  const resPass=document.getElementById('s-res-pass').value;
+  
+  if(syndicPass){
+    S.syndicPass=syndicPass;
+    document.getElementById('s-syndic-pass').value='';
+  }
+  if(resPass){
+    S.residentPass=resPass;
+    document.getElementById('s-res-pass').value='';
+  }
+  
+  if(syndicPass || resPass){
+    save();
+    alert('✓ تم حفظ كلمات المرور بنجاح');
+  } else {
+    alert('⚠️ الرجاء إدخال كلمة مرور واحدة على الأقل');
+  }
 }
 
-// ===== EXPENSE MODAL =====
-function openExpModal(){
-  document.getElementById('exp-date').value=new Date().toISOString().split('T')[0];
-  const m=now.getMonth(),y=now.getFullYear();
-  const mm=document.getElementById('exp-month-m');const yy=document.getElementById('exp-year-y');
-  if(mm)mm.value=m;if(yy)yy.value=y;
-  document.getElementById('exp-modal').classList.add('open');
-}
+function renderDashboard(){}
+function renderResident(){}
+function renderPayments(){}
+function renderExpenses(){}
+function renderContacts(){}
+function renderMore(){}
+function openExpModal(){}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
-function saveExpense(){
-  const amount=parseFloat(document.getElementById('exp-amount').value)||0;if(!amount)return;
-  const m=parseInt(document.getElementById('exp-month-m').value);
-  const y=parseInt(document.getElementById('exp-year-y').value);
-  S.expenses.push({type:document.getElementById('exp-type').value,desc:document.getElementById('exp-desc').value,amount,date:document.getElementById('exp-date').value,month:m,year:y});
-  save();closeModal('exp-modal');renderExpenses();renderDashboard();checkNotifs();
-  document.getElementById('exp-amount').value='';document.getElementById('exp-desc').value='';
-}
-function delExp(i){if(confirm('حذف؟')){S.expenses.splice(i,1);save();renderExpenses();renderDashboard();}}
+function openContactModal(){}
+function openReminderModal(){}
+function saveExpense(){}
+function saveContact(){}
+function saveReminder(){}
+function openNotifs(){}
+function clearNotifs(){}
+function exportCSV(){}
+function updateSettings(){}
+function addIdea(){}
+function getAIIdeas(){}
 
-// ===== CONTACTS MODAL =====
-function openContactModal(apt){
-  document.getElementById('c-apt').innerHTML=S.aptNumbers.map(n=>`<option value="${n}"${n===apt?' selected':''}>${n}</option>`).join('');
-  const c=apt&&S.contacts[apt];
-  document.getElementById('c-name').value=c?c.name:'';
-  document.getElementById('c-phone').value=c?c.phone:'';
-  document.getElementById('c-notes').value=c?c.notes||'':'';
-  document.getElementById('contact-modal').classList.add('open');
-}
-function saveContact(){
-  const apt=document.getElementById('c-apt').value;
-  S.contacts[apt]={name:document.getElementById('c-name').value,phone:document.getElementById('c-phone').value,notes:document.getElementById('c-notes').value};
-  save();closeModal('contact-modal');renderContacts();
-}
-
-// ===== EXPORT =====
-function exportCSV(){
-  const m=parseInt(document.getElementById('pay-month').value),y=parseInt(document.getElementById('pay-year').value);
-  let csv='الشقة,الساكن,الحالة,المبلغ\n';
-  S.aptNumbers.forEach(a=>{const c=S.contacts[a];csv+=`"${a}","${c?c.name:'—'}","${paid(a,m,y)?'أدّى':'لم يؤدِ'}","${S.fee}"\n`;});
-  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv'}));a.download=`مستحقات_${MONTHS[m]}_${y}.csv`;a.click();
-}
-
-// ===== MODAL BG CLOSE =====
-document.querySelectorAll('.modal-bg').forEach(bg=>{bg.addEventListener('click',e=>{if(e.target===bg)bg.classList.remove('open');});});
-
-// ===== SERVICE WORKER =====
-if('serviceWorker' in navigator){
-  const swCode=`const CACHE='syndic62v2';const ASSETS=[location.href];self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));`;
-  const blob=new Blob([swCode],{type:'application/javascript'});
-  navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
-}
-
-// ===== INIT =====
 load();
-// Check if already logged in (session)
-const savedSession=sessionStorage.getItem('syndic62session');
-if(savedSession){
-  try{
-    currentUser=JSON.parse(savedSession);
-    document.getElementById('login-screen').style.display='none';
-    document.getElementById('app-shell').style.display='';
-    document.getElementById('main-nav').style.display='flex';
-    setupForRole();
-    initApp();
-  }catch(e){currentUser=null;}
-}
 </script>
 </body>
 </html>
